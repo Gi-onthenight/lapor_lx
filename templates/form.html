@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Selamat Datang Di Forum Pengaduan  LearningX Online" />
+    <meta property="og:description"
+        content="Kamu bisa mengadukan semua masalah atau keluhan pembelajaran di LearningX." />
+    <meta property="og:image" content="" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/6bf387338b.js" crossorigin="anonymous"></script>
+
+    <title>Lapor | LearningX</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container flex justify-center items-center">
+        <div class="ly">
+            <section class="navbar">
+                <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+                    <div class="flex lg:flex-1">
+                        <a href="/" class="-m-1.5 p-1.5">
+                            <img class="h-6 w-auto" src="{{ url_for('static', filename='images/v1.png') }}" alt="">
+                        </a>
+                    </div>
+                    <div class="lg:flex lg:flex-1 lg:justify-end">
+                        <a href="/login" class="text-sm font-semibold leading-6 text-gray-900">Log in
+                            <span>&rarr;</span></a>
+                    </div>
+                </nav>
+            </section>
+
+            <section class="forms">
+
+                <div class=" isolate bg-white px-6 py-16 sm:py-16 lg:px-8">
+
+                    <div class="f-title mx-auto max-w-2xl text-left p-8">
+                        <h2 class="text-3xl font-bold tracking-tight sm:text-2xl">Kirim Laporanmu Disini</h2>
+                        <p class="mt-2 text-sm leading-8">ASemua laporanmu akan difeedback secepatnya </p>
+                    </div>
+                    <form class="mx-auto mt-16 max-w-xl sm:mt-20">
+                        <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                            <div class="sm:col-span-2">
+                                <label for="name"
+                                    class="block text-sm font-semibold leading-6 text-gray-900">Nama</label>
+                                <div class="mt-2.5">
+                                    <input type="text" name="name" id="name"
+                                        class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="id-discord" class="block text-sm font-semibold leading-6 text-gray-900">Id
+                                    Discord</label>
+                                <div class="mt-2.5">
+                                    <input type="text" name="id-discord" id="id-discord"
+                                        class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="no-wa" class="block text-sm font-semibold leading-6 text-gray-900">No
+                                    WhatsApp</label>
+                                <div class="mt-2.5">
+                                    <input type="text" name="no-wa" id="no-wa"
+                                        class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-2">
+                                <label for="jenis-laporan"
+                                    class="block text-sm font-semibold leading-6 text-gray-900">Jenis Laporan</label>
+                                <div class="mt-2">
+                                    <select id="jenis" name="jenis"
+                                        class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6">
+                                        <option>Media</option>
+                                        <option>Server</option>
+                                        <option>Pembayaran</option>
+                                        <option>Teknis</option>
+                                        <option value="#">Lainnya</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label for="laporan"
+                                    class="block text-sm font-semibold leading-6 text-gray-900">Laporan</label>
+                                <div class="mt-2.5">
+                                    <textarea name="laporan" id="laporan" rows="4"
+                                        class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-10">
+                            <button type="submit"
+                                class="block w-full rounded-md bg-red-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm ">Kirim</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="flex justify-center">
+                    <img src="{{ url_for('static', filename='images/progress.png') }}" width="600">
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+    <section class="footer px-10 mt-10">
+        <footer>
+            <div class="idt">
+                <div class="grid max-w-2xl grid-cols-1 px-4 py-12 sm:px-6 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
+                    <div>
+                        <div class="grid-cols-1 ">
+                            <img src="{{ url_for('static', filename='images/learningx.png') }}" width="120">
+                            <dt class="font-bold">PT Global Investment Institusi</dt>
+                            <dd class="mt-2 text-sm">Pacific Century Place Lantai 33
+                                Jl. Jend. Sudirman No.52-53, RT.5/RW.3, Senayan,Kec. Kby. Baru, Kota Jakarta
+                                Selatan, DaerahKhusus Ibukota Jakarta 12190</dd>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="grid-cols-2 text-right">
+                            <dt class="font-bold">Sosial Media</dt>
+                            <div class="m-item flex justify-end py-8">
+                                <div class="flex justify-between">
+                                    <div>
+                                        <i class="fa-brands fa-youtube fa-xl"></i>
+                                    </div>
+                                    <div>
+                                        <i class="fa-brands fa-instagram fa-xl"></i>
+                                    </div>
+                                    <div>
+                                        <i class="fa-brands fa-twitter fa-xl"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <hr class="py-2">
+                    <p class="text-sm text-right py-1">LearningX Copyright © 2023 All Rights Reserved</p>
+                </div>
+            </div>
+        </footer>
+    </section>
+</body>
+
+</html>

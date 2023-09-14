@@ -1,0 +1,84 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'montserrat', sans-serif;
+}
+
+.container {
+    width: 100%;
+    flex-direction: column;
+}
+
+.ly {
+    width: 90%;
+}
+
+.button-lapor {
+    background-color: #BC1E2D;
+}
+
+.logos {
+    width: 100%;
+}
+
+.logo {
+    width: 30%;
+
+}
+
+.bg-exce, .ral-bg {
+    background: url('images/bluesol.png');
+    background-position: center;
+    background-size: cover;
+    border-radius: 50px;
+    color: white;
+}
+
+.ral-bg {
+    border-radius: 20px;
+}
+
+.r-bar {
+    width: 80% ;
+    height: 20px;
+    background-color: #BC1E2D;
+    border-radius: 20px 20px 0 0;
+}
+
+.card-ral {
+    background-color: rgba(255, 255, 255, 0.331);
+    border-radius: 10px;
+
+}
+
+.footer {
+    width: 100%;
+    background-color: rgba(198, 198, 198, 0.429);
+}
+
+.idt {
+    width: 100%;
+    color: rgb(69, 69, 69);
+}
+
+hr {
+    border-top: 0.5px solid rgb(44, 44, 44) ;
+}
+
+.f-title {
+    background-color: #BC1E2D;
+    color: white;
+    border-radius: 20px;
+}
+
+input {
+    outline: none;
+}
+
+.m-item div {
+    width: 110px;
+}
+

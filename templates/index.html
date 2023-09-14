@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Selamat Datang Di Forum Pengaduan  LearningX Online" />
+    <meta property="og:description"
+        content="Kamu bisa mengadukan semua masalah atau keluhan pembelajaran di LearningX." />
+    <meta property="og:image" content="" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/6bf387338b.js" crossorigin="anonymous"></script>
+
+    <title>Lapor | LearningX</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+    <div class="container flex justify-center items-center">
+        <div class="ly">
+            <section class="navbar inset-x-0 top-0 z-50">
+
+                <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+                    <div class="flex lg:flex-1">
+                        <a href="/" class="-m-1.5 p-1.5">
+                            <img class="h-6 w-auto" src="{{ url_for('static', filename='images/v1.png') }}" alt="">
+                        </a>
+                    </div>
+                   
+                </nav>
+
+            </section>
+
+            <section class="header">
+                <div class="relative isolate px-6 lg:px-8">
+                    <div class="mx-auto max-w-2xl py-20 ">
+                        <div class="text-center">
+                            <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">Selamat Datang Di
+                                Lapor LearningX
+                                Online</h1>
+                            <p class="mt-6 text-sm leading-8 text-gray-600">Kamu bisa mengadukan semua masalah atau
+                                laporan selama pembelajaran di LearningX.</p>
+                            <div class="flex justify-center">
+                                <img src="{{ url_for('static', filename='images/v2.png') }}" width="300">
+                            </div>
+                            <div class="mt-10 flex items-center justify-center gap-x-6">
+                                <a href="/laporan"
+                                    class="button-lapor rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm">Buat
+                                    Laporan</a>
+                                <a href="https://www.learningx.com" target="_blank"
+                                    class="text-sm font-semibold leading-6 text-gray-900">LearningX Course <span
+                                        aria-hidden="true">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="logos flex justify-center py-10">
+                <div class="logo flex justify-between ">
+                    <img src="{{ url_for('static', filename='images/learningx.png') }}" width="100">
+                    <img src="{{ url_for('static', filename='images/abyssinian.png') }}" width="100">
+                </div>
+            </section>
+
+            <section class="exce">
+                <div>
+                    <div
+                        class="mb-16 bg-exce rounded-h items-center text-center px-4 py-24 sm:px-6 sm:py-8 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
+                        <div>
+                            <h2 class="text-3xl font-bold tracking-tight sm:text-2xl">3 KEUNGGULAN</h2>
+
+                            <div class="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-3 sm:gap-y-16 lg:gap-x-8">
+
+                                <div class="pt-4 ">
+                                    <div class="set mb-8">
+                                        <i class="fa-solid fa-sitemap fa-2xl"></i>
+                                    </div>
+                                    <dt class="font-semibold">Kemudahan Penggunaan</dt>
+
+                                </div>
+
+                                <div class="pt-4 ">
+                                    <div class="set mb-8">
+                                        <i class="fa-solid fa-business-time fa-2xl"></i>
+                                    </div>
+                                    <dt class="font-semibold">Pemantauan Status Real-time</dt>
+
+                                </div>
+
+                                <div class="pt-4 ">
+                                    <div class="set mb-8">
+                                        <i class="fa-solid fa-envelope-circle-check fa-2xl"></i>
+                                    </div>
+                                    <dt class="font-semibold">Respon Cepat dan Tim Dukungan</dt>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </section>
+
+            <section class="ral">
+                <div class="ly-bar flex justify-center ">
+                    <div class="r-bar"></div>
+                </div>
+
+                <div class="ral-bg">
+                    <div class=" mx-auto max-w-2xl items-center text-center sm:px-10 sm:py-20 lg:max-w-7xl">
+                        <div>
+                            <h2 class="text-3xl font-bold tracking-tight sm:text-2xl">3 LANGKAH PENGGUNAAN</h2>
+
+                            <dl class="mt-16 gap-x-6 gap-y-10 sm:gap-y-16 lg:gap-x-8">
+
+                                <div class="card-ral px-8 py-2 mb-4">
+                                    <dt class="font-medium">Masuk form laporan dengan menekan tombol Buat Laporan
+                                        diatas,</dt>
+                                </div>
+
+                                <div class="card-ral px-8 py-2 mb-4">
+                                    <dt class="font-medium">Isi setiap kolomnya laporan dengan format yang benar,</dt>
+                                </div>
+
+                                <div class="card-ral px-8 py-2 ">
+                                    <dt class="font-medium">Setelah semuanya diisi, tekan tombol kirim. Laporanmu akan
+                                        segera ditanggapi</dt>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <section class="footer px-10 mt-10">
+            <footer>
+                <div class="idt">
+                    <div class="grid max-w-2xl grid-cols-1 px-4 py-12 sm:px-6 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
+                        <div>
+                            <div class="grid-cols-1 ">
+                                <img src="{{ url_for('static', filename='images/learningx.png') }}" width="120">
+                                <dt class="font-bold">PT Global Investment Institusi</dt>
+                                <dd class="mt-2 text-sm">Pacific Century Place Lantai 33
+                                    Jl. Jend. Sudirman No.52-53, RT.5/RW.3, Senayan,Kec. Kby. Baru, Kota Jakarta
+                                    Selatan, DaerahKhusus Ibukota Jakarta 12190</dd>
+                            </div>
+
+                        </div>
+                        <div>
+                            <div class="grid-cols-2 text-right">
+                                <dt class="font-bold">Sosial Media</dt>
+                                <div class="m-item flex justify-end py-8">
+                                    <div class="flex justify-between">
+                                        <div>
+                                            <i class="fa-brands fa-youtube fa-xl"></i>
+                                        </div>
+                                        <div>
+                                            <i class="fa-brands fa-instagram fa-xl"></i>
+                                        </div>
+                                        <div>
+                                            <i class="fa-brands fa-twitter fa-xl"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <hr class="py-2">
+                        <p class="text-sm text-right py-1">LearningX Copyright © 2023 All Rights Reserved</p>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+    </div>
+</body>
+
+</html>
