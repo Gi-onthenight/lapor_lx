@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\MyBook PRO K5V\Documents\.Agi Riyadlussolih XII PPLG\Project\Websites\lapor_lx\_env"
+VIRTUAL_ENV="C:\Users\MyBook PRO K5V\Documents\GitHub\lx_lapor\_env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

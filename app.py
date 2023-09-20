@@ -11,17 +11,17 @@ def index():
 def form():
     return render_template('form.html')
 
-@app.route('/login')
-def login():
+@app.route('/signin')
+def signin():
     return render_template('admin/login.html')
 
 @app.route('/dashboard')
-def home():
+def dashboard():
     return render_template('admin/dashboard.html')
 
 @app.route('/analisis')
 def analisis():
-    return render_template('analisis.html')
+    return render_template('admin/analisis.html')
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
