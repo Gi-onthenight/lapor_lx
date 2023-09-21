@@ -21,9 +21,34 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
     <title>Lapor | LearningX</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <script>
+        $(document).ready(function () {
+            var messages = {{ get_flashed_messages() | tojson | safe }};
+                if (messages.length > 0) {
+                    alert(messages.join('\n'));
+                };
+            
+            $("#laporan-form").submit(function (e) {
+                var nama = $("[name=nama]").val();
+                var noWa = $("[name=no-wa]").val();
+                var idDiscord = $("[name=id-discord]").val();
+                var jenisL = $("[name=jenis-l]").val();
+                var laporan = $("[name=laporan]").val();
+    
+                if (!nama || !noWa || !idDiscord || !jenisL || !laporan) {
+                    e.preventDefault();
+                    alert('Semua kolom harus diisi.');
+                }
+            });
+        });
+    </script>
 
 </head>
 
@@ -34,12 +59,6 @@
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='img/learningx.png') }}"
                             alt="LearningX" width="100"></a>
-                    <a href="/signin" target="_blank"><button type="button" class="btn">LearningX <svg
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                            </svg></button></a>
 
                 </div>
             </nav>
@@ -51,38 +70,46 @@
                             Buat Laporan
                         </div>
                         <div class="card-body">
-                            <form action="" method="post" class="p-2">
+                            <form action="/submit" method="post" class="p-2" id="laporan-form" enctype="multipart/form-data">
+
                                 <div class="input-group mb-4">
-                                    <input type="text" class="form-control" placeholder="Nama Lengkap"
-                                        aria-label="name">
+                                    <input type="text" class="form-control" placeholder="Nama Lengkap" name="nama">
                                 </div>
 
                                 <div class="input-group mb-4">
-                                    <input type="text" class="form-control" placeholder="No WhatsApp">
+                                    <input type="text" class="form-control" placeholder="No WhatsApp" name="no-wa">
                                     <span class="input-group-text">#</span>
-                                    <input type="text" class="form-control" placeholder="Id Discord">
+                                    <input type="text" class="form-control" placeholder="Id Discord" name="id-discord">
                                 </div>
 
                                 <div class="input-group mb-4">
-                                    <input type="file" class="form-control">
+                                    <input type="file" class="form-control" name="lampiran">
                                     <label class="input-group-text">Lampiran</label>
                                 </div>
 
                                 <div class="input-group mb-4">
-                                    <select class="form-select">
-                                        <option selected>Jenis Laporan</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    
+                                    <select class="form-select" name="jenis-l">
+                                        <option value="Media">Media</option>
+                                        <option value="Text">Text</option>
+                                        <option value="Foto">Foto</option>
+                                        <option value="Video">Video</option>
+                                        <option value="Server">Server</option>
+                                        <option value="Pembayaran">Pembayaran</option>
+                                        <option value="Teknis-m">Teknis atau Mentor</option>
+                                        
                                     </select>
+                                    <label class="input-group-text">Jenis Laporan</label>
                                 </div>
 
                                 <div class="input-group mb-4">
-                                    <textarea class="form-control" placeholder="Laporan"></textarea>
+                                    <textarea class="form-control" placeholder="Laporan" name="laporan" rows="4" cols="50"></textarea>
                                 </div>
 
-                                <button type="submit" class="btn btn-lx px-3" style="float: right;">Kirim</button>
+                                <button type="submit" class="btn btn-lx px-3" value="submit"
+                                    style="float: right;">Kirim</button>
                             </form>
+
                         </div>
                     </div>
                 </div>

@@ -21,6 +21,8 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <title>Analisis | LearningX</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -36,10 +38,20 @@
                         <img src="{{ url_for('static', filename='img/learningx.png') }}" alt="LearningX" width="100">
                     </a>
 
-                    <div class="nav1 " style="font-size: 10pt;">
-                        <a href="/dashboard" class="px-2" style="text-decoration: none;color: inherit;">Home</a>
-                        <a href="/analisis" class="px-2" style="text-decoration: none;color: inherit;">Analisis</a>
-                        <a href="/signout" class="px-2" style="text-decoration: none;color: inherit;">Sign Out</a>
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" style="font-size: 10pt;" href="#"
+                            role="button" data-bs-toggle="dropdown"  aria-expanded="false">
+                            Menu
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end"  style="font-size: 10pt;">
+                            <li><a class="dropdown-item" href="{{ url_for('dashboard', key=key) }}">Home</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('analisis', key=key) }}">Analisis</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/logout">Sign Out</a></li>
+                        </ul>
+
                     </div>
                 </div>
             </nav>
@@ -50,19 +62,23 @@
                         <div class="card-body bg-blue" style="border-radius: 20px;color: white;">
                             Jumlah Data
                         </div>
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <a href="#"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                             <p>Jumlah Laporan</p>
-                            <span class="fs-5">53</span>
+
+                            <span class="fs-5">{{ total_d }}</span>
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <a href="#"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                             <p>Laporan Tertangani</p>
-                            <span class="fs-5">34</span>
-                            
+                            <span class="fs-5">{{ t_sudah }}</span>
+
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <a href="#"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                             <p>Laporan Belum Tertangani</p>
-                            <span class="fs-5">14</span>
-                            
+                            <span class="fs-5">{{ t_belum }}</span>
+
                         </a>
                     </div>
                 </div>

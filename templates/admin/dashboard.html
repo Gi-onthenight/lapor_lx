@@ -21,9 +21,24 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <title>Home | LearningX</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <script>
+        $(document).ready(function () {
+            $("#search-input").on("keyup", function () {
+                var searchTerm = $(this).val().toLowerCase();
+                $("#data-table tbody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(searchTerm) > -1);
+                });
+            });
+            
+        });
+        
+    </script>
 
 </head>
 
@@ -35,11 +50,21 @@
                     <a class="navbar-brand" href="/">
                         <img src="{{ url_for('static', filename='img/learningx.png') }}" alt="LearningX" width="100">
                     </a>
-                    
-                    <div class="nav1 " style="font-size: 10pt;">
-                        <a href="/dashboard" class="px-2" style="text-decoration: none;color: inherit;">Home</a>
-                        <a href="/analisis" class="px-2" style="text-decoration: none;color: inherit;">Analisis</a>
-                        <a href="/signout" class="px-2" style="text-decoration: none;color: inherit;">Sign Out</a>
+
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" style="font-size: 10pt;" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Menu
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" style="font-size: 10pt;border: none;border-radius: 10px;">
+                            <li><a class="dropdown-item" href="{{ url_for('dashboard', key=key) }}">Home</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('analisis', key=key) }}">Analisis</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/logout">Sign Out</a></li>
+                        </ul>
+
                     </div>
 
                 </div>
@@ -52,28 +77,13 @@
                             <div class="card-body ">
                                 <div class="d-flex justify-content-between">
                                     <p style="font-size: 10pt;">List Data Laporan</p>
-                                    <div class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" style="font-size: 10pt;" href="#"
-                                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Filter
-                                        </a>
-                                        <ul class="dropdown-menu text-end" style="font-size: 10pt;"
-                                            data-popper-placement="bottom-end">
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                        </ul>
-                                    </div>
+                                    
                                 </div>
 
                                 <div style="height: 30px;">
-                                    <form class="d-flex" role="search">
-
-                                        <input class="form-control me-2" type="search" placeholder="Search"
-                                            aria-label="Search">
+                                    <form class="d-flex" role="search" id="search-l">
+                                        <input class="form-control" type="text" placeholder="Search"
+                                            aria-label="Search" id="search-input">
                                         <button type="button" class="btn btn-secondary"
                                             style="border-radius: 10px;"><svg xmlns="http://www.w3.org/2000/svg"
                                                 width="16" height="16" fill="currentColor" class="bi bi-search"
@@ -91,7 +101,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div style="max-height: 60vh; overflow-y: auto;">
-                                            <table class="table">
+                                            <table class="table table-hover" id="data-table">
                                                 <thead style="position: sticky;top: 0;">
                                                     <tr>
                                                         <th>No</th>
@@ -101,28 +111,42 @@
                                                         <th>Status</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody style="font-size: 10pt;">
+                                                    {% for laporan in data %}
                                                     <tr>
-                                                        <a href="/">
-                                                            <td>1</td>
-                                                            <td>John Doe</td>
-                                                            <td>john@example.com</td>
-                                                            <td>cghnc</td>
-                                                            <td>xfbb</td>
-                                                        </a>
-
+                                                        <td>{{ loop.index }}</td>
+                                                        <td>{{ laporan.nama }}</td>
+                                                        <td>{{ laporan.no_wa }} | {{ laporan.id_discord }}</td>
+                                                        <td>{{ laporan.jenis_l }}</td>
+                                                        <td><a href="{{ url_for('get_data', key=key, key_person=laporan.id_person) }}"
+                                                                style="color: inherit;text-decoration: none;">
+                                                                {% if laporan.status == 'Belum' %}
+                                                                <div selectedStatus="belum"
+                                                                    style="color: rgb(235, 84, 84);">
+                                                                    Belum <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="16" height="16" fill="currentColor"
+                                                                        class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                                                                    </svg>
+                                                                </div>
+                                                                {% else %}
+                                                                <div selectedStatus="sudah"
+                                                                    style="color: rgb(86, 207, 86);">
+                                                                    Sudah <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="16" height="16" fill="currentColor"
+                                                                        class="bi bi-check2" viewBox="0 0 16 16">
+                                                                        <path
+                                                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                                    </svg>
+                                                                </div>
+                                                                {% endif %}
+                                                            </a>
+                                                        </td>
                                                     </tr>
+                                                    
+                                                    {% endfor %}
 
-
-                                                    <a href="/">
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>John Doe</td>
-                                                            <td>john@example.com</td>
-                                                            <td>cghnc</td>
-                                                            <td>xfbb</td>
-                                                        </tr>
-                                                    </a>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -134,47 +158,57 @@
                     <div class="col-4">
                         <div class="card bg-blue" style="color: white;">
                             <div class="card-body">
-                                <img src="{{ url_for('static', filename='img/bg.png') }}" class="card-img-top"
+                                {% if selected_laporan %}
+                                <img src="{{ url_for('static', filename='img/lampiran/' + selected_laporan.lampiran) }}"
+                                    class="card-img-top"
                                     style="border-radius:20px;object-fit: cover;object-position: center;" width="120"
                                     height="200">
                                 <div class="card-body">
+
                                     <figure>
 
                                         <figcaption class="blockquote-footer" style="color: white;">
-                                            Jenis Laporan
+                                            {{ selected_laporan.jenis_l }}
                                         </figcaption>
                                         <blockquote class="blockquote">
-                                            <p style="font-size: 8pt;">Lorem Ipsum is simply dummy text of the printing
-                                                and
-                                                typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                                                text ever since the 1500s, when an unknown printer took a galley of type
-                                                and scrambled it to make a type specimen book. It has survived not only
-                                                five centuries, but also the leap into electronic typesetting, remaining
-                                                essentially unchanged.</p>
+                                            <p style="font-size: 8pt;">{{ selected_laporan.laporan }}</p>
                                         </blockquote>
                                         <div class="d-flex justify-content-between">
                                             <div>
-                                                <p class="lh-1" style="font-size: 14pt;">Agi Riyadlussolih</p>
+                                                <p class="lh-1" style="font-size: 14pt;">{{ selected_laporan.nama }}</p>
                                                 <figcaption class="blockquote-footer"
                                                     style="font-size: 10pt; color: white;">
-                                                    +6212345677 | #1234455
+                                                    {{ selected_laporan.no_wa }} | {{ selected_laporan.id_discord }}
                                                 </figcaption>
                                                 <p class="lh-1" style="font-size: 10pt;"></p>
                                             </div>
                                             <div>
-                                                <button type="button" class="btn btn-light"
-                                                    style="position: relative;"><svg xmlns="http://www.w3.org/2000/svg"
-                                                        width="16" height="16" fill="currentColor" class="bi bi-check2"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                                                    </svg></button>
+                                                {% if selected_laporan.status == 'Belum' %}
+                                                <form method="POST"
+                                                    action="{{ url_for('update_status', key_person=selected_laporan.id_person) }}">
+                                                    <button type="submit" class="btn  btn-light"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-check2"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                        </svg></button>
+                                                </form>
+                                                {% else %}
+
+                                                {% endif %}
+
                                             </div>
 
+
+                                        </div>
+                                        <div class="date">
+                                            <p style="font-size: 7pt;">{{ selected_laporan.tanggal }}</p>
                                         </div>
                                     </figure>
-                                </div>
 
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
 
