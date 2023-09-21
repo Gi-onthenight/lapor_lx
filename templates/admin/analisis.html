@@ -31,12 +31,16 @@
     <div class="bg-blur" style="height: 100vh;">
         <div class="container">
             <nav class="navbar navbar-expand-lg">
-                <div class="container py-2 card flex-row">
+                <div class="container py-2 card flex-row px-3">
                     <a class="navbar-brand" href="/">
                         <img src="{{ url_for('static', filename='img/learningx.png') }}" alt="LearningX" width="100">
                     </a>
 
-
+                    <div class="nav1 " style="font-size: 10pt;">
+                        <a href="/dashboard" class="px-2" style="text-decoration: none;color: inherit;">Home</a>
+                        <a href="/analisis" class="px-2" style="text-decoration: none;color: inherit;">Analisis</a>
+                        <a href="/signout" class="px-2" style="text-decoration: none;color: inherit;">Sign Out</a>
+                    </div>
                 </div>
             </nav>
 
@@ -46,8 +50,20 @@
                         <div class="card-body bg-blue" style="border-radius: 20px;color: white;">
                             Jumlah Data
                         </div>
-                        <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                        <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <p>Jumlah Laporan</p>
+                            <span class="fs-5">53</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <p>Laporan Tertangani</p>
+                            <span class="fs-5">34</span>
+                            
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <p>Laporan Belum Tertangani</p>
+                            <span class="fs-5">14</span>
+                            
+                        </a>
                     </div>
                 </div>
                 <div class="col-5">
@@ -60,9 +76,7 @@
                                         <blockquote class="blockquote">
                                             <p>Media</p>
                                         </blockquote>
-                                        <figcaption class="blockquote-footer">
-                                            Someone famous in <cite title="Source Title">Source Title</cite>
-                                        </figcaption>
+                                        <p class="fs-1 ">13</p>
                                     </figure>
                                 </div>
 
@@ -77,9 +91,7 @@
                                         <blockquote class="blockquote">
                                             <p>Server</p>
                                         </blockquote>
-                                        <figcaption class="blockquote-footer">
-                                            Someone famous in <cite title="Source Title">Source Title</cite>
-                                        </figcaption>
+                                        <p class="fs-1 ">23</p>
                                     </figure>
                                 </div>
                             </div>
@@ -96,9 +108,7 @@
                                         <blockquote class="blockquote">
                                             <p>Pembayaran</p>
                                         </blockquote>
-                                        <figcaption class="blockquote-footer">
-                                            Someone famous in <cite title="Source Title">Source Title</cite>
-                                        </figcaption>
+                                        <p class="fs-1 ">14</p>
                                     </figure>
                                 </div>
                             </div>
@@ -112,26 +122,24 @@
                                         <blockquote class="blockquote">
                                             <p>Mentor</p>
                                         </blockquote>
-                                        <figcaption class="blockquote-footer">
-                                            Someone famous in <cite title="Source Title">Source Title</cite>
-                                        </figcaption>
+                                        <p class="fs-1 ">2</p>
                                     </figure>
                                 </div>
                             </div>
                         </div>
 
                     </div>
-<div class="col-14 mt-3">
-                    <div class="card list-group bg-blue">
-                        <div class="card-body bg-blue" style="border-radius: 20px;color: white;">
-                            Jumlah Data
+                    <div class="col-14 mt-3">
+                        <div class="card list-group bg-blue">
+                            <div class="card-body bg-blue" style="border-radius: 20px;color: white;">
+                                Analisis
+                            </div>
+                            <a href="#" class="list-group-item list-group-item-action">Analis Bulanan</a>
+                            <a href="#" class="list-group-item list-group-item-action">Preview</a>
                         </div>
-                        <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                        <a href="#" class="list-group-item list-group-item-action">A third link item</a>
                     </div>
                 </div>
-                </div>
-                
+
             </div>
         </div>
     </div>

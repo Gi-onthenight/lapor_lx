@@ -58,3 +58,11 @@ body {
     height: 100%;
     z-index: -1;
 }
+
+.nav1 a{
+    transition: ease 0.5s;
+}
+.nav1 a:hover {
+    border-radius: 10px;
+    border-bottom: 2px solid red;
+}
