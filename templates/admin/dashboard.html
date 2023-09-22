@@ -35,9 +35,37 @@
                     $(this).toggle($(this).text().toLowerCase().indexOf(searchTerm) > -1);
                 });
             });
-            
+
+            $("#search-input").on("keyup", function () {
+                var searchTerm = $(this).val().toLowerCase();
+                $("#data-table tbody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(searchTerm) > -1);
+                });
+            });
+            $('.f-d').on('click', function (e) {
+                e.preventDefault();
+                const filterType = $(this).data('filter-type');
+                const filterValue = $(this).data('filter-value');
+                filterData(filterType, filterValue);
+            });
+
+            function filterData(filterType, filterValue) {
+                $('#data-table tbody tr').hide();
+
+                if (filterType === 'status' && filterValue !== 'all') {
+                    $(`#data-table tbody tr td:nth-child(5) div[status="${filterValue}"]`).each(function () {
+                        $(this).closest('tr').show();
+                    });
+                } else if (filterType === 'jenis' && filterValue !== 'all') {
+                    $(`#data-table tbody tr td[jenis="${filterValue}"]`).each(function () {
+                        $(this).closest('tr').show();
+                    });
+                } else if (filterType === 'all') {
+                    $('#data-table tbody tr').show();
+                }
+            }
         });
-        
+
     </script>
 
 </head>
@@ -56,7 +84,8 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Menu
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" style="font-size: 10pt;border: none;border-radius: 10px;">
+                        <ul class="dropdown-menu dropdown-menu-end"
+                            style="font-size: 10pt;border: none;border-radius: 10px;">
                             <li><a class="dropdown-item" href="{{ url_for('dashboard', key=key) }}">Home</a></li>
                             <li><a class="dropdown-item" href="{{ url_for('analisis', key=key) }}">Analisis</a></li>
                             <li>
@@ -77,20 +106,58 @@
                             <div class="card-body ">
                                 <div class="d-flex justify-content-between">
                                     <p style="font-size: 10pt;">List Data Laporan</p>
-                                    
+                                    <div class="dropdown" style="font-size: 10pt;">
+                                        <button class="nav-link dropdown-toggle" type="button" id="statusDropdown"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Filter
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" style="font-size: 10pt;"
+                                            aria-labelledby="statusDropdown">
+                                            <a class="dropdown-item f-d" href="#" data-filter-type="all">Semua Data</a>
+
+                                            <hr class="dropdown-divider">
+
+                                            <a class="dropdown-item f-d" href="#" data-filter-type="status"
+                                                data-filter-value="belum">Belum
+                                                Tertangani</a>
+                                            <a class="dropdown-item f-d" href="#" data-filter-type="status"
+                                                data-filter-value="sudah">Sudah
+                                                Tertangani</a>
+
+                                            <hr class="dropdown-divider">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                                        data-filter-value="Media">Media</a>
+                                                    <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                                        data-filter-value="Text">Text</a>
+                                                    <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                                        data-filter-value="Foto">Foto</a>
+                                                    <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                                        data-filter-value="Video">Video</a>
+                                                </div>
+                                                <div class="col">
+                                                    <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                                        data-filter-value="Server">Server</a>
+                                                    <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                                        data-filter-value="Pembayaran">Pembayaran</a>
+                                                    <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                                        data-filter-value="Teknis atau Mentor">Teknis/Mentor</a>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
                                 </div>
+
+
 
                                 <div style="height: 30px;">
                                     <form class="d-flex" role="search" id="search-l">
-                                        <input class="form-control" type="text" placeholder="Search"
-                                            aria-label="Search" id="search-input">
-                                        <button type="button" class="btn btn-secondary"
-                                            style="border-radius: 10px;"><svg xmlns="http://www.w3.org/2000/svg"
-                                                width="16" height="16" fill="currentColor" class="bi bi-search"
-                                                viewBox="0 0 16 16">
-                                                <path
-                                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                            </svg></button>
+                                        <input class="form-control" type="text" placeholder="Search" aria-label="Search"
+                                            id="search-input" style="height: 30px;font-size: 12px;">
                                     </form>
                                 </div>
                             </div>
@@ -113,38 +180,36 @@
                                                 </thead>
                                                 <tbody style="font-size: 10pt;">
                                                     {% for laporan in data %}
-                                                    <tr>
-                                                        <td>{{ loop.index }}</td>
+                                                    <tr onclick="window.location.href='{{ url_for('get_data', key=key, key_person=laporan.id_person) }}';"
+                                                        style="cursor: pointer;">
+
+                                                        <td style="border-radius: 10px 0 0 10px;">{{ loop.index }}</td>
                                                         <td>{{ laporan.nama }}</td>
                                                         <td>{{ laporan.no_wa }} | {{ laporan.id_discord }}</td>
-                                                        <td>{{ laporan.jenis_l }}</td>
-                                                        <td><a href="{{ url_for('get_data', key=key, key_person=laporan.id_person) }}"
-                                                                style="color: inherit;text-decoration: none;">
-                                                                {% if laporan.status == 'Belum' %}
-                                                                <div selectedStatus="belum"
-                                                                    style="color: rgb(235, 84, 84);">
-                                                                    Belum <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        width="16" height="16" fill="currentColor"
-                                                                        class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                                                        <path fill-rule="evenodd"
-                                                                            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                                                                    </svg>
-                                                                </div>
-                                                                {% else %}
-                                                                <div selectedStatus="sudah"
-                                                                    style="color: rgb(86, 207, 86);">
-                                                                    Sudah <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        width="16" height="16" fill="currentColor"
-                                                                        class="bi bi-check2" viewBox="0 0 16 16">
-                                                                        <path
-                                                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                                                                    </svg>
-                                                                </div>
-                                                                {% endif %}
-                                                            </a>
+                                                        <td jenis="{{ laporan.jenis_l }}">{{ laporan.jenis_l }}</td>
+                                                        <td style="border-radius: 0 10px 10px 0;">
+                                                            {% if laporan.status == 'Belum' %}
+                                                            <div status="belum" style="color: rgb(235, 84, 84);">
+                                                                Belum <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                    height="16" fill="currentColor"
+                                                                    class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                                                                </svg>
+                                                            </div>
+                                                            {% else %}
+                                                            <div status="sudah" style="color: rgb(86, 207, 86);">
+                                                                Sudah <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                    height="16" fill="currentColor" class="bi bi-check2"
+                                                                    viewBox="0 0 16 16">
+                                                                    <path
+                                                                        d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                                                </svg>
+                                                            </div>
+                                                            {% endif %}
                                                         </td>
                                                     </tr>
-                                                    
+
                                                     {% endfor %}
 
                                                 </tbody>
