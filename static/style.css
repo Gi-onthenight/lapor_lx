@@ -56,7 +56,7 @@ body {
     border: 1px solid red;
     color: red;
     transition: all 0.5s;
-    
+
 }
 
 .btn-outline-lx:hover {
@@ -77,4 +77,25 @@ body {
 
 .bg-lx {
     color: rgb(244, 73, 73);
+}
+
+.form-login1 {
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .form-login2,
+    .im1 {
+        display: none;
+    }
+
+    .form-login1 {
+        display: block;
+    }
+
+    .c-s {
+        height: 25% !important;
+
+    }
 }

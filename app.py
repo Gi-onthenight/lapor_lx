@@ -10,11 +10,14 @@ from datetime import datetime
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
-MONGODB_URI = os.environ.get("MONGODB_URI")
-DB_NAME =   os.environ.get("DB_NAME")
+# MONGODB_URI = os.environ.get("MONGODB_URI")
+# DB_NAME =   os.environ.get("DB_NAME")
 
-client = MongoClient(MONGODB_URI)
-db = client[DB_NAME]
+# client = MongoClient(MONGODB_URI)
+# db = client[DB_NAME]
+
+client = MongoClient("mongodb://laporlx:pkl123@ac-gf9nitl-shard-00-00.y5cgdlb.mongodb.net:27017,ac-gf9nitl-shard-00-01.y5cgdlb.mongodb.net:27017,ac-gf9nitl-shard-00-02.y5cgdlb.mongodb.net:27017/?ssl=true&replicaSet=atlas-cspp58-shard-0&authSource=admin&retryWrites=true&w=majority")
+db = client.lapor_lx
 
 def generate_random_filename(length):
     letters_and_digits = string.ascii_letters + string.digits
@@ -31,6 +34,10 @@ def index():
     total_d = db.laporan.count_documents({})
     
     return render_template('index.html', page=page, total_d=total_d)
+
+@app.route('/temp')
+def temp():
+    return render_template('admin/d-temp.html')
 
 @app.route('/laporan')
 def form():
@@ -132,7 +139,6 @@ def login_auth():
             return redirect(url_for('login'))
         
 
-
 @app.route('/dashboard/<key>')
 def dashboard(key):
     page = "Dashboard"
@@ -151,7 +157,7 @@ def get_data(key, id_person):
 
     data = list(db.laporan.find({}, {'_id': False}))
     
-    return render_template('componens/db/card-laporan.html', data=data, selected_laporan=laporan, key=key, page=page)
+    return render_template('componens/db_temp/card-laporan.html', data=data, selected_laporan=laporan, key=key, page=page)
     
 @app.route('/update_status/<id_person>', methods=['POST'])
 def update_status(id_person):

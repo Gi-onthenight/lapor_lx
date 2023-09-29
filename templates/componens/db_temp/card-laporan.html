@@ -1,0 +1,64 @@
+{% if selected_laporan %}
+
+<p class="fs-5 fw-semibold">Data Laporan</p>
+<div>
+    <img style="border-radius: 20px;object-fit: cover;object-position: center;" class="p-2"
+        src="{{ url_for('static', filename='imgs/lampiran/' + selected_laporan.lampiran) }}" alt="" width="370"
+        height="250">
+</div>
+
+
+<div class="px-2">
+    <span style="font-size: 10pt;">Jenis : {{ selected_laporan.jenis_l }}</span>
+    <span style="font-size: 8pt;float: right;">{{ selected_laporan.tanggal }}</span>
+</div>
+<div class="card px-2 my-2">
+    <div class="card-body fw-semibold">
+        <p style="font-size: 8pt;">Laporan </p>
+    <p class="px-2" style="font-size: 8pt;">{{ selected_laporan.laporan }}</p>
+    </div>
+    
+</div>
+<div class="px-2 ">
+    <span style="font-size: 11pt;">{{ selected_laporan.nama}} </span>
+    <span class="px-2" style="font-size: 8pt;">{{ selected_laporan.no_wa }} | {{ selected_laporan.id_discord }}</span>
+</div>
+
+
+{% if selected_laporan.status == 'Belum' %}
+<div>
+
+    <button style="float: right;" type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
+        data-bs-target="#alertModal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+            <path
+                d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+        </svg>
+    </button>
+
+
+    <form method="POST" action="{{ url_for('update_status', id_person=selected_laporan.id_person) }}">
+        <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Perhatian</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah anda yakin ingin mengubah laporan?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                        <button type="submit" class="btn btn-primary px-3">Ya</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+{% else %}
+{% endif %}
+
+{% endif %}
