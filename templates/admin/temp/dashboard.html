@@ -1,8 +1,29 @@
 
-<div class="p-2">
+<script>
+    $(document).ready( function () {
+        $(".data-item").click(function () {
+        var id_person = $(this).data("id");
+
+        $.ajax({
+            url: "/get_data/<key>/" + id_person,
+            type: "GET",
+            dataType: "html",
+            success: function (htmlData) {
+
+                $("#detail-data").html(htmlData);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+    })
+    
+</script>
+<div class="p-2 " style="position: sticky;top: 0;">
     <div class="card bg">
         <div class="card-body row">
-            <span class="fs-5 fw-semibold">Profile Data</span>
+            
         </div>
     </div>
 
@@ -65,9 +86,9 @@
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-body" style="height: 58vh;">
-            <div style="max-height: 56vh; overflow-y: auto;">
+    <div class="card" style="border-left: 2px solid red;">
+        <div class="card-body" style="height: 70vh;">
+            <div style="max-height: 64vh; overflow-y: auto;">
                 <table class="table table-hover" id="data-table">
                     <thead style="position: sticky;top: 0;font-size: 10pt;">
                         <tr>

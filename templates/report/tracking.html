@@ -1,36 +1,17 @@
-{% extends 'componens/head.html'%}
+{% extends 'temp/index.html' %}
 
 {% block body %}
 <script>
-    $(document).ready(function () {
-        var messages = {{ get_flashed_messages() | tojson | safe
+    var messages = {{ get_flashed_messages() | tojson | safe
     }};
+
     if (messages.length > 0) {
         alert(messages.join('\n'));
     };
-    $("form").submit(function(event) {
-        event.preventDefault();
-        var id_person = $("#id_person").val();
-        
-        // Lakukan permintaan Ajax untuk pencarian
-        $.ajax({
-            url: "/cari-laporan/hasil" + id_person,
-            type: "GET",
-            dataType: "html",
-            success: function(htmlData) {
-                $("#searched-data").html(htmlData);
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
-    });
-    )};
-
 </script>
-<div class="bg-blur" style="width: 100%;height: 100vh;">
-    <div class="container w-100 h-100 ">
-        {% include 'componens/navbar.html' %}
+<div class="bg-blur">
+    <div class="container">
+        {% include 'temp/navbar.html' %}
         <div class="forms container-fluid w-100 h-100">
             <div class="d-flex justify-content-center align-items-center h-75">
                 <div class="card">
@@ -38,18 +19,18 @@
                         Cari Info Laporan
                     </div>
                     <div class="card-body">
-                        <form action="/cari-laporan/hasil" method="post" class="p-2" id="laporan-form"
+                        <form action="/tracking/result" method="post" class="p-2" id="laporan-form"
                             enctype="multipart/form-data">
-                            <p style="font-size: 10pt;color: grey;">*Jika belum memiliki kode akses laporanmu silahkan
+                            <p style="font-size: 8pt;color: grey;">*Jika belum memiliki kode akses laporanmu silahkan
                                 buat
-                                laporan terlebuh dahulu atau bisa menghubungi kami..</p>
+                                laporan terlebuh dahulu atau bisa menghubungi kami.</p>
 
                             <div class="input-group mb-4">
                                 <input type="text" class="form-control" placeholder="Masukkan kode aksesmu"
-                                id="id_person" name="id_person">
+                                    id="id_person" name="id_person">
                             </div>
 
-                            <button type="submit" class="btn px-4 btn-outline-lx" value="submit"
+                            <button type="submit" class="py-1 px-4 btn-lx" value="submit"
                                 style="float: right;font-size: 10pt;">Cari</button>
 
                         </form>
@@ -61,16 +42,24 @@
                                 <p class="fw-semibold">Nama :</p>
                                 <P class="px-2">{{ data.nama }}</P>
                             </div>
-                            
+
                             {% if data.status == 'Belum' %}
                             <div>
                                 <p class="fw-semibold">Status :</p>
-                                <P class="px-2" style="color: rgb(235, 84, 84);">Laporan akan segera diperiksa. Mohon Tunggu.</P>
+                                <P class="px-2" style="font-size: 10pt;color: rgb(235, 84, 84);">Laporan akan segera diperiksa. Mohon
+                                    Tunggu.</P>
                             </div>
                             {% else %}
                             <div>
                                 <p class="fw-semibold">Status :</p>
-                                <P class="px-2" style="color: rgb(86, 207, 86);">Laporan telah diperiksa dan diberi feedback.</P>
+                                <P class="px-2" style="font-size: 10pt;color: rgb(86, 207, 86);">Laporan telah diperiksa dan diberi
+                                    feedback. Berikut feedbacknya</P>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <p style="font-size: 11pt;">{{ data.nama_teknisi}}</p>
+                                    <p class="px-2" style="font-size: 10pt;border-left: 2px solid red;">{{ data.feedback }}</p>
+                                </div>
                             </div>
                             {% endif %}
 
@@ -80,9 +69,9 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 </div>
-{% include 'componens/footer.html' %}
+
+
 {% endblock %}

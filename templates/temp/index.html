@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="{{url_for('static', filename='imgs/favicon.ico')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{url_for('static', filename='assets/imgs/favicon.ico')}}" type="image/x-icon">
 
-    <meta property="og:title" content="Lapor LearningX" />
+    <meta property="og:title" content="Lapor LX from LearningX" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="{{ url_for('static', filename='imgs/bg.png')}}" />
-    <link rel="shortcut icon" href="{{url_for('static', filename='imgs/lx.png')}}" />
+    <meta property="og:image" content="{{ url_for('static', filename='assets/imgs/bg.png')}}" />
+    <link rel="shortcut icon" href="{{url_for('static', filename='assets/imgs/lx.png')}}" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,10 +27,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <script src="{{ url_for('static', filename='main.js')}}"></script>
 
-    <title> {{ page }} | LearningX</title>
+    <title>{{ page }} | Lapor LX</title>
 </head>
 
 <body>

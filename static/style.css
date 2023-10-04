@@ -3,19 +3,30 @@
     margin: 0;
 }
 
-body {
-    font-family: 'Montserrat', sans-serif;
+/* body {} */
+
+.card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgb(188, 188, 188);
 }
 
 .bg {
-    background-image: url('imgs/bg.png');
+    background-image: url('assets/imgs/bg.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .bg-blue {
-    background-image: url('imgs/bg-blue.png');
+    background-image: url('assets/imgs/bg-blue.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-green {
+    background-image: url('assets/imgs/bg-green.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -23,7 +34,7 @@ body {
 
 .bg-blur:before {
     content: "";
-    background-image: url('imgs/bg.png');
+    background-image: url('assets/imgs/bg.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -36,14 +47,19 @@ body {
     z-index: -1;
 }
 
-.card {
-    border: none;
+.btn-lx {
+    background-color: transparent;
+    border: 1px solid red;
     border-radius: 20px;
-    box-shadow: 0px 0px 10px rgb(188, 188, 188);
 }
 
-.btn {
-    border-radius: 20px;
+.btn-lx:hover {
+    background-color: red;
+    color: white;
+}
+
+.testy::-webkit-scrollbar {
+    border-radius: 10px;
 }
 
 .form-control {
@@ -52,45 +68,22 @@ body {
     outline: none;
 }
 
-.btn-outline-lx {
-    border: 1px solid red;
-    color: red;
-    transition: all 0.5s;
-
-}
-
-.btn-outline-lx:hover {
-    background-color: red;
-    color: white;
-    border-radius: 50px;
-}
-
-.b-link-inherit {
-    color: inherit;
-    text-decoration: none;
-    transition: ease-in 0.5s;
-}
-
-.b-link-inherit:hover {
-    font-weight: bolder;
-}
-
-.bg-lx {
-    color: rgb(244, 73, 73);
-}
-
 .form-login1 {
+    display: none;
+}
+
+.l-sm {
     display: none;
 }
 
 @media only screen and (max-width: 768px) {
 
     .form-login2,
-    .im1 {
+    .im1, .l-lg {
         display: none;
     }
 
-    .form-login1 {
+    .form-login1, .l-sm {
         display: block;
     }
 
@@ -98,4 +91,14 @@ body {
         height: 25% !important;
 
     }
+
+    .c-1 {
+        justify-content: start;
+    }
+
+}
+
+.nav-lx {
+    font-size: 12pt;
+    color: red;
 }

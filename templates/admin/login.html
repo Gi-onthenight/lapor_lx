@@ -1,39 +1,37 @@
-{% extends 'componens/head.html' %}
+{% extends 'temp/index.html' %}
+
 {% block body %}
 <script>
-    $(document).ready(function () {
-        var messages = {{ get_flashed_messages() | tojson | safe
+    var messages = {{ get_flashed_messages() | tojson | safe
     }};
 
     if (messages.length > 0) {
         alert(messages.join('\n'));
-    }
-    });
+    };
 </script>
-
-<div class="row bg-blur" style="height:100vh;width:100%;">
+<div class="container-fluid">
+<div class="row bg-blur" style="height:100vh;">
     <div class="col">
-        <div class="d-flex flex-column align-item-center">
-            <div class="container ms-3 pt-3">
-                <a href="/" target="_blank" rel="noopener noreferrer"> <img class="mb-3"
-                        src="{{ url_for('static', filename='imgs/learningx.png') }}" alt="LearningX" width="100"></a>
-                <div class="im-1">
-                    <p class="mb-3 fs-3 fw-semibold">LearningX Service Center</p>
-                    <p class="fw-semibold" style="width: 256px;font-size: 10pt;">Hello Admin, ada laporan yang perlu
-                        anda tangani. Silahkan
-                        Sign
-                        In.</p>
-                </div>
+        <div class="p-3 d-flex flex-column justify-content-around h-75">
+            <a href="/" > <img class="mb-3"
+                    src="{{ url_for('static', filename='assets/imgs/learningx.png') }}" alt="LearningX" width="100"></a>
+            <div class="im-1">
+                <p class="mb-3 fs-3 fw-semibold">LearningX Service Center</p>
+                <p class="fw-semibold" style="width: 256px;font-size: 10pt;">Hello Admin, ada laporan yang perlu
+                    anda tangani. Silahkan
+                    Sign
+                    In.</p>
             </div>
+
             <div class="im1">
-                <img style="float: right;" src="{{ url_for('static', filename='imgs/i-2.png')}}" alt="Illust1"
+                <img style="float: right;" src="{{ url_for('static', filename='assets/imgs/i-1.png')}}" alt="Illust1"
                     width="380">
             </div>
             <div>
                 <div class=" h-100 d-flex justify-content-center align-items-center ">
                     <div class="form-login1">
                         <div class=" card-header py-4 fs-6 fw-bold" style="border-radius: 20px;">
-                            <img src="{{ url_for('static', filename='imgs/lx.png')}}" alt="LX" width="20">
+                            <img src="{{ url_for('static', filename='assets/imgs/lx.png')}}" alt="LX" width="20">
                             Sign In
                         </div>
                         <div class="card p-4" style="box-shadow: none;">
@@ -50,7 +48,7 @@
                                         type="password" class="form-control" placeholder="Password" name="password">
                                 </div>
                                 <p style="font-size: 7pt;">*Pastikan anda memiliki akses.</p>
-                                <button type="submit" class="btn btn-outline-lx px-3 w-100"
+                                <button type="submit" class="btn btn-lx py-1 px-3 w-100"
                                     style="font-size: 10pt;">Sign
                                     In</button>
                             </form>
@@ -64,12 +62,11 @@
         </div>
     </div>
 
-    <div class="col form-login2 bg-blue 
-    ">
+    <div class="col form-login2 bg-blue">
         <div class="h-100 d-flex justify-content-center align-items-center">
             <div class="" style="background: transparent;">
                 <div class="card-header py-4 fs-6 fw-bold" style="border-radius: 20px;color: white;">
-                    <img src="{{ url_for('static', filename='imgs/lx.png')}}" alt="LX" width="20">
+                    <img src="{{ url_for('static', filename='assets/imgs/lx.png')}}" alt="LX" width="20">
                     Sign In
                 </div>
                 <div class="card p-4" style="box-shadow: none;">
@@ -84,7 +81,7 @@
                                 type="password" class="form-control" placeholder="Password" name="password">
                         </div>
                         <p style="font-size: 7pt;">*Pastikan anda memiliki akses.</p>
-                        <button type="submit" class="btn btn-outline-lx px-3 w-100" style="font-size: 10pt;">Sign
+                        <button type="submit" class="btn btn-lx py-1 px-3 w-100" style="font-size: 10pt;">Sign
                             In</button>
                     </form>
                 </div>
@@ -92,6 +89,7 @@
 
         </div>
     </div>
+</div>
 </div>
 
 {% endblock %}
