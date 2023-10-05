@@ -6,6 +6,8 @@ import random
 import os
 from os.path import join, dirname
 from datetime import datetime
+import pywhatkit as kit
+import threading
 
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -48,7 +50,7 @@ def submit():
 
         if not nama or not no_wa or not id_discord or not jenis_l or not laporan or not lampiran:
             flash('Harap mengisi semua form dengan benar.', 'error')
-            return redirect(url_for('form'))
+            return redirect(url_for('main.report'))
 
         data = {
             'id_person': id_person,
@@ -71,15 +73,38 @@ def submit():
         flash('Laporan Anda telah dikirim!', 'success')
         return render_template('report/index.html', kode_akses=id_person, page=page)
     else:
-        return redirect(url_for('report'))
+        return redirect(url_for('main.report'))
     
+# @auth_bp.route('/send-whatsapp', methods=['POST'])
+# def send_whatsapp():
+#     code = request.form['text']
+#     record = db.laporan.find_one({'id_person': code})
+
+#     if record:
+#         noWa = record['no-wa']
+#         template = f"Hello,\n\nHere is your report code:\n\n```{code}```\n\n"
+#         c = datetime.datetime.now()
+#         waktu = c.strftime("%I,%M")
+#         try:
+#             threading.Thread(target=kit.sendwhatmsg, args=(f"{noWa}", template, waktu)).start()
+#             return "Pesan sedang dikirim ke WhatsApp!"
+#         except Exception as e:
+#             print(str(e))
+#             return "Gagal mengirim pesan ke WhatsApp."
+#     else:
+#         return "Data tidak ditemukan untuk kode ini."
+
+
 @auth_bp.route('/tracking/result', methods=['POST'])
 def cari():
     page = 'Tracking'
     kode_akses = request.form['id_person']
+    
+    if not kode_akses :
+      flash('Harap masukkan data dengan benar', 'error')
+      return redirect(url_for('main.tracking'))
 
     data = db.laporan.find_one({'id_person': kode_akses})
-
     session['kode_akses'] = kode_akses
 
     if data :
@@ -87,8 +112,9 @@ def cari():
         return render_template('report/tracking.html', data=data, id_person=kode_akses, page=page)
     else:
         flash('Data laporan tidak ada.', 'error')
-        return redirect(url_for('tracking'))
+        return redirect(url_for('main.tracking'))
 
+      
 @auth_bp.route('/login')
 def login():
     page = 'Log In'
@@ -108,7 +134,7 @@ def login_auth():
 
         if user:
             session['logged_in'] = True
-            key = generate_random_filename(8)
+            key = generate_random_filename(12)
             flash('Anda berhasil Log In.', 'success')
             return redirect(url_for('main.dashboard', key=key))
         else:
@@ -135,7 +161,6 @@ def update_status(id_person):
 
         if not feedback or not nama_teknisi :
             flash('Harap mengisi semua form dengan benar.', 'error')
-            return redirect(url_for('main.dashboard', key=id_person))
         
         db.laporan.update_one(
             {'id_person': id_person},
@@ -157,4 +182,3 @@ def logout():
     session.pop('logged_in', None)
     flash('Anda telah logout.', 'success')
     return redirect(url_for('auth.login'))
-

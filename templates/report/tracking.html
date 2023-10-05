@@ -27,7 +27,7 @@
 
                             <div class="input-group mb-4">
                                 <input type="text" class="form-control" placeholder="Masukkan kode aksesmu"
-                                    id="id_person" name="id_person">
+                                    id="id_person" name="id_person" required>
                             </div>
 
                             <button type="submit" class="py-1 px-4 btn-lx" value="submit"
@@ -46,19 +46,24 @@
                             {% if data.status == 'Belum' %}
                             <div>
                                 <p class="fw-semibold">Status :</p>
-                                <P class="px-2" style="font-size: 10pt;color: rgb(235, 84, 84);">Laporan akan segera diperiksa. Mohon
+                                <P class="px-2" style="font-size: 10pt;color: rgb(235, 84, 84);">Laporan akan segera
+                                    diperiksa. Mohon
                                     Tunggu.</P>
                             </div>
                             {% else %}
                             <div>
                                 <p class="fw-semibold">Status :</p>
-                                <P class="px-2" style="font-size: 10pt;color: rgb(86, 207, 86);">Laporan telah diperiksa dan diberi
-                                    feedback. Berikut feedbacknya</P>
+                                <P class="px-2" style="font-size: 10pt;color: rgb(86, 207, 86);">Laporan telah diperiksa
+                                    dan diberi
+                                    feedback.</P>
                             </div>
                             <div class="card">
                                 <div class="card-body">
-                                    <p style="font-size: 11pt;">{{ data.nama_teknisi}}</p>
-                                    <p class="px-2" style="font-size: 10pt;border-left: 2px solid red;">{{ data.feedback }}</p>
+                                    <P>Feedback</P>
+                                    <span style="font-size: 11pt;">{{ data.nama_teknisi}}</span>
+                                    <p style="font-size: 8pt;">Mentor/Teknisi</p>
+                                    <p class="px-2" style="font-size: 10pt;border-left: 2px solid green;">{{ data.feedback }}</p>
+                                    <span style="font-size: 8pt;float: right;">{{ data.tanggal }}</span>
                                 </div>
                             </div>
                             {% endif %}

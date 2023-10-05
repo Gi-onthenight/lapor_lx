@@ -20,7 +20,7 @@
 <div class="card px-2 my-2">
     <div class="card-body fw-semibold">
         <p style="font-size: 8pt;">Feedback </p>
-        <p class="px-2" style="font-size: 8pt;border-left: 2px solid red;">{{ selected_laporan.feedback }}</p>
+        <p class="px-2" style="font-size: 8pt;border-left: 2px solid green;">{{ selected_laporan.feedback }}</p>
     </div>
 </div>
 {% endif %}
@@ -32,33 +32,13 @@
 
 {% if selected_laporan.status == 'Belum' %}
 <div>
-    <button style="float: right;" type="button" class="btn btn-primary me-2 rounded-5" data-bs-toggle="modal"
+    <button style="float: right;" type="button" class="btn px-3 btn-primary me-2 rounded-5" data-bs-toggle="modal"
         data-bs-target="#alertModal">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
             <path
                 d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
         </svg>
     </button>
-
-    <!-- <form method="POST" action="{{ url_for('auth.update_status', id_person=selected_laporan.id_person) }}">
-        <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="card modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Berikan Feedback</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                        <button type="submit" class="btn btn-primary px-3">Ya</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form> -->
 
     <div class=" modal fade" id="alertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class=" modal-dialog">
@@ -71,12 +51,12 @@
                     <form method="POST" action="{{ url_for('auth.update_status', id_person=selected_laporan.id_person) }}">
                         <div class="mb-3">
                             <label for="nama-teknisi" class="col-form-label">Nama Teknisi:</label>
-                            <input type="text" class="form-control" id="nama-teknisi" name="nama-teknisi">
+                            <input type="text" class="form-control" id="nama-teknisi" name="nama-teknisi" required>
                         </div>
                         <div class="mb-3">
                             <label for="feedback" class="col-form-label">Feedback:</label>
                             <textarea class="form-control"  name="feedback" id="feedback" rows="4"
-                                cols="50"></textarea>
+                                cols="50" required></textarea>
                         </div>
                         <div class="buttons">
                             <button type="submit" value="submit" class="btn-lx px-3 py-1">Kirim Feedback</button>
