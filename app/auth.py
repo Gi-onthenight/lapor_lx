@@ -6,8 +6,6 @@ import random
 import os
 from os.path import join, dirname
 from datetime import datetime
-import pywhatkit as kit
-import threading
 
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -43,10 +41,15 @@ def submit():
         tanggal = datetime.now().strftime("%Y-%m-%d")
         status = 'Belum'
 
-        if lampiran:
+        allowed_extensions = {'png', 'jpg', 'jpeg'}
+
+        if lampiran and lampiran.filename.rsplit('.', 1)[1].lower() in allowed_extensions:
             filename = generate_random_filename(10) + '.jpg'
             filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
             lampiran.save(filepath)
+        else :
+            flash('Lampiran harus berupa gambar.', 'error')
+            return redirect(url_for('main.report'))
 
         if not nama or not no_wa or not id_discord or not jenis_l or not laporan or not lampiran:
             flash('Harap mengisi semua form dengan benar.', 'error')
