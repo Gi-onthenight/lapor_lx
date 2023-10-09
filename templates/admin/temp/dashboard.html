@@ -57,20 +57,7 @@
                                 class="rounded-4 img-fluid">
                         </div>
                         {% endfor %}
-                        {% for i in data %}
-                        <div class="col-md-3 d-flex p-1">
-                            <img style="border: 1px solid white;"
-                                src="{{ url_for('static', filename='lampiran/' + i.lampiran) }}"
-                                class="rounded-4 img-fluid">
-                        </div>
-                        {% endfor %}
-                        {% for i in data %}
-                        <div class="col-md-3 d-flex p-1">
-                            <img style="border: 1px solid white;"
-                                src="{{ url_for('static', filename='lampiran/' + i.lampiran) }}"
-                                class="rounded-4 img-fluid">
-                        </div>
-                        {% endfor %}
+                        
                     </div>
                 </div>
             </div>
@@ -159,16 +146,6 @@
 
                         {% endif %}
                     </div>
-
-                    <!-- <div class="row p-3" style="max-height: 85vh; overflow-y: auto;">
-                        {% for i in data %}
-                        <div class="col-md-6 p-1">
-                            <img style="border: 1px solid white;"
-                                src="{{ url_for('static', filename='lampiran/' + i.lampiran) }}"
-                                class="rounded-4 img-fluid">
-                        </div>
-                        {% endfor %}
-                    </div> -->
                 </div>
 
             </div>
