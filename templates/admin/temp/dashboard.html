@@ -1,138 +1,176 @@
 
-<script>
-    $(document).ready( function () {
-        $(".data-item").click(function () {
-        var id_person = $(this).data("id");
-
-        $.ajax({
-            url: "/get_data/<key>/" + id_person,
-            type: "GET",
-            dataType: "html",
-            success: function (htmlData) {
-
-                $("#detail-data").html(htmlData);
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    });
-    })
-    
-</script>
-<div class="p-2 " style="position: sticky;top: 0;">
-    <div class="card bg">
-        <div class="card-body row">
-            
-        </div>
-    </div>
-
-    <div class="card my-2">
-        <div class="card-body">
-            <div class="d-flex justify-content-between ">
-                <p style="font-size: 10pt;">List Data Laporan</p>
-                <div class="dropdown" style="font-size: 10pt;">
-                    <button class="nav-link dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Filter
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end" style="font-size: 10pt;"
-                        aria-labelledby="statusDropdown">
-                        <a class="dropdown-item f-d" href="#" data-filter-type="all">Semua Data</a>
-
-                        <hr class="dropdown-divider">
-                        <p class="fs-6 fw-semibold ps-3">Status</p>
-
-                        <a class="dropdown-item f-d" href="#" data-filter-type="status" data-filter-value="belum">Belum
-                            Tertangani</a>
-                        <a class="dropdown-item f-d" href="#" data-filter-type="status" data-filter-value="sudah">Sudah
-                            Tertangani</a>
-
-                        <hr class="dropdown-divider">
-                        <p class="fs-6 fw-semibold ps-3">Kategori</p>
-                        <div class="row">
-                            <div class="col">
-                                <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
-                                    data-filter-value="Media">Media</a>
-                                <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
-                                    data-filter-value="Text">Text</a>
-                                <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
-                                    data-filter-value="Foto">Foto</a>
-                                <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
-                                    data-filter-value="Video">Video</a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
-                                    data-filter-value="Server">Server</a>
-                                <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
-                                    data-filter-value="Pembayaran">Pembayaran</a>
-                                <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
-                                    data-filter-value="Teknis atau Mentor">Teknis/Mentor</a>
+    <div class="row m-2">
+        <div class="col ">
+            <div class=" card p-2 shadow">
+                <p class="p-2 fw-semibold ">Data Statistik</p>
+                <hr>
+                <div class="row">
+                    <div class="col-md-3 mb-2">
+                        <div class="card bg-blue text-white">
+                            <div class="card-body">
+                                <p style="font-size: 11pt;">Laporan</p>
+                                <hr>
+                                <span class="fs-5">{{ total_d }}</span>
 
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="card bg-blue text-white">
+                            <div class="card-body">
+                                <p style="font-size: 11pt;">Tertangani</p>
+                                <hr>
+                                <span class="fs-5">{{ t_sudah }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="card bg-blue text-white">
+                            <div class="card-body">
+                                <p style="font-size: 11pt;">Prosess</p>
+                                <hr>
+                                <span class="fs-5">{{ t_belum }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="card bg-blue text-white">
+                            <div class="card-body">
+                                <p style="font-size: 11pt;">Mentor/Teknisi</p>
+                                <hr>
+                                <span class="fs-5">20</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-
+            </div>
+            <div class="card my-3 shadow " >
+                <div class="content card-body ">
+                    <p class="p-2 fw-semibold">Preview Laporan</p>
+                    <hr>
+                    <div class="row p-3 content" style="max-height: 40vh; overflow-y: auto;">
+                        {% for i in data %}
+                        <div class="col-md-3 d-flex p-1">
+                            <img style="border: 1px solid white;"
+                                src="{{ url_for('static', filename='lampiran/' + i.lampiran) }}"
+                                class="rounded-4 img-fluid">
+                        </div>
+                        {% endfor %}
+                        {% for i in data %}
+                        <div class="col-md-3 d-flex p-1">
+                            <img style="border: 1px solid white;"
+                                src="{{ url_for('static', filename='lampiran/' + i.lampiran) }}"
+                                class="rounded-4 img-fluid">
+                        </div>
+                        {% endfor %}
+                        {% for i in data %}
+                        <div class="col-md-3 d-flex p-1">
+                            <img style="border: 1px solid white;"
+                                src="{{ url_for('static', filename='lampiran/' + i.lampiran) }}"
+                                class="rounded-4 img-fluid">
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-
-            <div style="height: 30px;">
-                <form class="d-flex" role="search" id="search-l">
-                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="search-input"
-                        style="height: 30px;font-size: 12px;">
-                </form>
-            </div>
         </div>
-    </div>
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body" style="font-size: 10pt;">
+                    <div class="card ">
+                        <span class="text-center p-2 fw-semibold">Type of Report</span>
+                    </div>
 
-    <div class="card" style="border-left: 2px solid red;">
-        <div class="card-body" style="height: 70vh;">
-            <div style="max-height: 64vh; overflow-y: auto;">
-                <table class="table table-hover" id="data-table">
-                    <thead style="position: sticky;top: 0;font-size: 10pt;">
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Kontak</th>
-                            <th>Jenis Keluhan</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody style="font-size: 10pt;">
-                        {% for laporan in data %}
-                        <tr 
-                            class="data-item" style="cursor: pointer;" data-id="{{ laporan.id_person }}">
 
-                            <td style="border-radius: 10px 0 0 10px;">{{ loop.index }}</td>
-                            <td>{{ laporan.nama }}</td>
-                            <td>{{ laporan.no_wa }} | {{ laporan.id_discord }}</td>
-                            <td jenis="{{ laporan.jenis_l }}">{{ laporan.jenis_l }}</td>
-                            <td style="border-radius: 0 10px 10px 0;">
-                                {% if laporan.status == 'Belum' %}
-                                <div status="belum" style="color: rgb(235, 84, 84);">
-                                    Belum <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                                    </svg>
+                    <div class="row mt-2">
+                        {% if kategori %}
+                        <div class="col-md-4 my-1">
+                            <div class="card bg-green">
+                                <div class="card-body">
+                                    <h6 style="font-size: 8pt;">Media</h6>
+                                    <span class="fw-semibold "
+                                        style="float: right;font-size: 12pt;">{{ kategori.media
+                                        }}
+                                        <span style="font-size: 8pt;">Laporan</span></span>
                                 </div>
-                                {% else %}
-                                <div status="sudah" style="color: rgb(86, 207, 86);">
-                                    Sudah <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                                        <path
-                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                                    </svg>
+                            </div>
+                        </div>
+                        <div class="col-md-4 my-1">
+                            <div class="card bg-green">
+                                <div class="card-body">
+                                    <h6 style="font-size: 8pt;">Text</h6>
+                                    <span class="fw-semibold "
+                                        style="float: right;font-size: 12pt;">{{ kategori.text
+                                        }} <span style="font-size: 8pt;">Laporan</span></span>
                                 </div>
-                                {% endif %}
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
+                        <div class="col-md-4 my-1">
+                            <div class="card bg-green">
+                                <div class="card-body">
+                                    <h6 style="font-size: 8pt;">Foto</h6>
+                                    <span class="fw-semibold"
+                                        style="float: right;font-size: 12pt;">{{ kategori.foto
+                                        }} <span style="font-size: 8pt;">Laporan</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 my-1">
+                            <div class="card bg-green">
+                                <div class="card-body">
+                                    <h6 style="font-size: 8pt;">Video</h6>
+                                    <span class="fw-semibold"
+                                        style="float: right;font-size: 12pt;">{{ kategori.video
+                                        }} <span style="font-size: 8pt;">Laporan</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 my-1">
+                            <div class="card bg-green">
+                                <div class="card-body">
+                                    <h6 style="font-size: 8pt;">Server</h6>
+                                    <span class="fw-semibold"
+                                        style="float: right;font-size: 12pt;">{{
+                                        kategori.server }} <span style="font-size: 8pt;">Laporan</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 my-1">
+                            <div class="card bg-green">
+                                <div class="card-body">
+                                    <h6 style="font-size: 8pt;">Pembayaran</h6>
+                                    <span class="fw-semibold"
+                                        style="float: right;font-size: 12pt;">{{
+                                        kategori.pembayaran }} <span style="font-size: 8pt;">Laporan</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 my-1">
+                            <div class="card bg-green">
+                                <div class="card-body">
+                                    <h6 style="font-size: 8pt;">Teknis</h6>
+                                    <span class=" fw-semibold "
+                                        style="float: right;font-size: 12pt;">{{
+                                        kategori.teknis }} <span style="font-size: 8pt;">Laporan</span></span>
+                                </div>
+                            </div>
+                        </div>
 
+                        {% endif %}
+                    </div>
+
+                    <!-- <div class="row p-3" style="max-height: 85vh; overflow-y: auto;">
+                        {% for i in data %}
+                        <div class="col-md-6 p-1">
+                            <img style="border: 1px solid white;"
+                                src="{{ url_for('static', filename='lampiran/' + i.lampiran) }}"
+                                class="rounded-4 img-fluid">
+                        </div>
                         {% endfor %}
+                    </div> -->
+                </div>
 
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

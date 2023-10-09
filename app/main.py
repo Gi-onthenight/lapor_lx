@@ -41,6 +41,15 @@ def tracking():
     page = 'Tracking'
     return render_template('report/tracking.html', page=page)
 
+@main_bp.route('/workspace/<key>')
+def workspace(key):
+    page = "Workspace"
+    if not session.get('logged_in'):
+        flash('Anda harus login terlebih dahulu!', 'error')
+        return redirect(url_for('auth.login'))
+    
+    data = list(db.laporan.find({}, {'_id': False}))
+    return render_template('temp/index.html', data=data, key=key, page=page)
 
 @main_bp.route('/dashboard/<key>')
 def dashboard(key):
@@ -49,20 +58,20 @@ def dashboard(key):
         flash('Anda harus login terlebih dahulu!', 'error')
         return redirect(url_for('auth.login'))
     
-    data = list(db.laporan.find({}, {'_id': False}))
-    return render_template('admin/index.html', data=data, key=key, page=page)
-
-@main_bp.route('/analisis/<key>')
-def analisis(key):
-    page = "Analisis"
-    if not session.get('logged_in'):
-        flash('Anda harus login terlebih dahulu!', 'error')
-        return redirect(url_for('auth.login'))
-    
     total_d = db.laporan.count_documents({})
     t_belum = db.laporan.count_documents({"status": "Belum"})
     t_sudah = db.laporan.count_documents({"status": "Sudah"})
     
+
+    kategori = {
+        'media':db.laporan.count_documents({"jenis_l": "Media"}),
+        'text':db.laporan.count_documents({"jenis_l": "Text"}),
+        'foto':db.laporan.count_documents({"jenis_l": "Foto"}),
+        'video':db.laporan.count_documents({"jenis_l": "Video"}),
+        'server':db.laporan.count_documents({"jenis_l": "Server"}),
+        'pembayaran':db.laporan.count_documents({"jenis_l": "Pembayaran"}),
+        'teknis':db.laporan.count_documents({"jenis_l": "Teknis atau Mentor"}),
+    }
     data = list(db.laporan.find({}, {'_id': False}))
-    return render_template('admin/temp/analisis.html', data=data, key=key,total_d=total_d, t_belum=t_belum, t_sudah=t_sudah, page=page)
+    return render_template('temp/index.html', data=data, key=key,total_d=total_d, t_belum=t_belum, t_sudah=t_sudah, page=page, kategori=kategori)
 

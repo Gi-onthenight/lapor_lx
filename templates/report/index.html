@@ -12,29 +12,16 @@
 
         navigator.clipboard.writeText(accessCode).then(function () {
             alert("Kode berhasil disalin!");
+            window.location.href = '/report';
         }).catch(function (err) {
             console.error('Gagal menyalin kode: ', err);
             alert("Gagal menyalin kode. Silakan coba lagi.");
         });
     };
-    function copyWa() {
-        var copyText = $("#access-code").text();
+    if (performance.navigation.type === 1 || performance.navigation.type === 2) {
         
-        $.ajax({
-            type: "POST",
-            url: "/send-whatsapp",
-            data: { 
-                text: copyText 
-             },
-        })
-        .done(function(response) {
-            alert("Teks berhasil disalin dan dikirim ke WhatsApp!");
-        })
-        .fail(function(error) {
-            alert("Gagal mengirim teks ke WhatsApp. Silakan coba lagi.");
-        });
-    };
-
+        window.location.href = '/report';
+    }
 </script>
 <div class="bg-blur">
     {% include 'temp/navbar.html' %}

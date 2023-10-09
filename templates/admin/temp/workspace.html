@@ -1,0 +1,150 @@
+<script>
+    $(document).ready(function () {
+        $(".data-item").click(function () {
+            var id_person = $(this).data("id");
+
+            $.ajax({
+                url: "/get_data/<key>/" + id_person,
+                type: "GET",
+                dataType: "html",
+                success: function (htmlData) {
+
+                    $("#detail-data").html(htmlData);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    })
+
+</script>
+<div class="row" style="max-height: 90%;">
+    <div class="col-md-8" >
+        <div class="p-2" style="position: sticky;top: 0;">
+            <div class="card bg">
+                <div class="card-body row">
+                </div>
+            </div>
+
+            <div class="card my-2 shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between ">
+                        <p style="font-size: 10pt;">List Data Laporan</p>
+                        <div class="dropdown" style="font-size: 10pt;">
+                            <button class="nav-link dropdown-toggle" type="button" id="statusDropdown"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Filter
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" style="font-size: 10pt;"
+                                aria-labelledby="statusDropdown">
+                                <a class="dropdown-item f-d" href="#" data-filter-type="all">Semua Data</a>
+
+                                <hr class="dropdown-divider">
+                                <p class="fs-6 fw-semibold ps-3">Status</p>
+
+                                <a class="dropdown-item f-d" href="#" data-filter-type="status"
+                                    data-filter-value="belum">Belum
+                                    Tertangani</a>
+                                <a class="dropdown-item f-d" href="#" data-filter-type="status"
+                                    data-filter-value="sudah">Sudah
+                                    Tertangani</a>
+
+                                <hr class="dropdown-divider">
+                                <p class="fs-6 fw-semibold ps-3">Kategori</p>
+                                <div class="row">
+                                    <div class="col">
+                                        <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                            data-filter-value="Media">Media</a>
+                                        <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                            data-filter-value="Text">Text</a>
+                                        <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                            data-filter-value="Foto">Foto</a>
+                                        <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                            data-filter-value="Video">Video</a>
+                                    </div>
+                                    <div class="col">
+                                        <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                            data-filter-value="Server">Server</a>
+                                        <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                            data-filter-value="Pembayaran">Pembayaran</a>
+                                        <a class="dropdown-item f-d" href="#" data-filter-type="jenis"
+                                            data-filter-value="Teknis atau Mentor">Teknis/Mentor</a>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card shadow">
+                <div class="card-body" style="height: 70vh;">
+                    <div style="max-height: 64vh; overflow-y: auto;">
+                        <table class="table table-hover" id="data-table">
+                            <thead style="position: sticky;top: 0;font-size: 10pt;">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Id</th>
+                                    <th>Nama</th>
+                                    <th>Kontak</th>
+                                    <th>Jenis Keluhan</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size: 10pt;">
+                                {% for laporan in data %}
+                                <tr class="data-item" style="cursor: pointer;" data-id="{{ laporan.id_person }}">
+
+                                    <td style="border-radius: 10px 0 0 10px;">{{ loop.index }}</td>
+                                    <td style="border-radius: 10px 0 0 10px;">{{ laporan.id_person }}</td>
+                                    <td>{{ laporan.nama }}</td>
+                                    <td>{{ laporan.no_wa }} | {{ laporan.id_discord }}</td>
+                                    <td jenis="{{ laporan.jenis_l }}">{{ laporan.jenis_l }}</td>
+                                    <td style="border-radius: 0 10px 10px 0;">
+                                        {% if laporan.status == 'Belum' %}
+                                        <div status="belum">
+                                            <!--                                     Belum <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                                            </svg> -->
+                                            <span class="badge bg-danger p-1 px-2">Belum</span>
+                                        </div>
+                                        {% else %}
+                                        <div status="sudah" style="color: rgb(86, 207, 86);">
+                                            <!--                                     Sudah <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                            </svg> -->
+                                            <span class="badge bg-success p-1 px-2">Sudah</span>
+                                        </div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card shadow h-100">
+            <div class="card bg-blue">
+                <div class="card-body"></div>
+            </div>
+            <div class="content card-body" style="font-size: 10pt;max-height: 90%;overflow-y: auto;" id="detail-data" >
+                {% include 'admin/temp/card-info.html' %}
+            </div>
+        </div>
+    </div>
+</div>

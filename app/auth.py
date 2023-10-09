@@ -70,33 +70,12 @@ def submit():
         session['kode_akses'] = id_person
 
         db.laporan.insert_one(data)
-        
-    
+
     if 'kode_akses' in session:
         flash('Laporan Anda telah dikirim!', 'success')
         return render_template('report/index.html', kode_akses=id_person, page=page)
     else:
         return redirect(url_for('main.report'))
-    
-# @auth_bp.route('/send-whatsapp', methods=['POST'])
-# def send_whatsapp():
-#     code = request.form['text']
-#     record = db.laporan.find_one({'id_person': code})
-
-#     if record:
-#         noWa = record['no-wa']
-#         template = f"Hello,\n\nHere is your report code:\n\n```{code}```\n\n"
-#         c = datetime.datetime.now()
-#         waktu = c.strftime("%I,%M")
-#         try:
-#             threading.Thread(target=kit.sendwhatmsg, args=(f"{noWa}", template, waktu)).start()
-#             return "Pesan sedang dikirim ke WhatsApp!"
-#         except Exception as e:
-#             print(str(e))
-#             return "Gagal mengirim pesan ke WhatsApp."
-#     else:
-#         return "Data tidak ditemukan untuk kode ini."
-
 
 @auth_bp.route('/tracking/result', methods=['POST'])
 def cari():
@@ -138,7 +117,6 @@ def login_auth():
         if user:
             session['logged_in'] = True
             key = generate_random_filename(12)
-            flash('Anda berhasil Log In.', 'success')
             return redirect(url_for('main.dashboard', key=key))
         else:
             flash('Username atau Password yang anda masukan salah. Silahkan coba lagi.', 'error')
@@ -178,10 +156,9 @@ def update_status(id_person):
         )
         
         flash('Feedback telah dikirim!', 'success')
-        return redirect(url_for('main.dashboard', key=id_person))
+        return redirect(url_for('main.dashboard', key=id_person, page=page))
 
 @auth_bp.route('/logout')
 def logout():
     session.pop('logged_in', None)
-    flash('Anda telah logout.', 'success')
     return redirect(url_for('auth.login'))
