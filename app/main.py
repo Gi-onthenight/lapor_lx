@@ -41,6 +41,11 @@ def tracking():
     page = 'Tracking'
     return render_template('report/tracking.html', page=page)
 
+@main_bp.route('/kode-akses/<key>/<kode_akses>')
+def access_code(key, kode_akses):
+    page = 'Kode Akses'
+    return render_template('report/access-code.html', page=page, kode_akses=kode_akses)
+
 @main_bp.route('/workspace/<key>')
 def workspace(key):
     page = "Workspace"
@@ -63,15 +68,46 @@ def dashboard(key):
     t_sudah = db.laporan.count_documents({"status": "Sudah"})
     
 
-    kategori = {
-        'media':db.laporan.count_documents({"jenis_l": "Media"}),
-        'text':db.laporan.count_documents({"jenis_l": "Text"}),
-        'foto':db.laporan.count_documents({"jenis_l": "Foto"}),
-        'video':db.laporan.count_documents({"jenis_l": "Video"}),
-        'server':db.laporan.count_documents({"jenis_l": "Server"}),
-        'pembayaran':db.laporan.count_documents({"jenis_l": "Pembayaran"}),
-        'teknis':db.laporan.count_documents({"jenis_l": "Teknis atau Mentor"}),
-    }
+    kategori = [
+        {
+            'nama': 'Media',
+            'jumlah':db.laporan.count_documents({"jenis_l": "Media"})
+        },
+        {
+            'nama': 'Text',
+            'jumlah':db.laporan.count_documents({"jenis_l": "Text"})
+        },
+        {
+            'nama': 'Foto',
+            'jumlah':db.laporan.count_documents({"jenis_l": "Foto"})
+        },
+        {
+            'nama': 'Video',
+            'jumlah':db.laporan.count_documents({"jenis_l": "Video"})
+        },
+        {
+            'nama': 'Server',
+            'jumlah':db.laporan.count_documents({"jenis_l": "Server"})
+        },
+        {
+            'nama': 'Payment',
+            'jumlah':db.laporan.count_documents({"jenis_l": "Pembayaran"})
+        },
+        {
+            'nama': 'Teknis',
+            'jumlah':db.laporan.count_documents({"jenis_l": "Teknis atau Mentor"})
+        },
+        
+    ]
     data = list(db.laporan.find({}, {'_id': False}))
     return render_template('temp/index.html', data=data, key=key,total_d=total_d, t_belum=t_belum, t_sudah=t_sudah, page=page, kategori=kategori)
 
+@main_bp.route('/admin-access/<key>')
+def admin_access(key):
+    page = 'Admin Access'
+    if not session.get('logged_in'):
+        flash('Anda harus login terlebih dahulu!', 'error')
+        return redirect(url_for('auth.login')) 
+    
+    data = list(db.admin.find({}, {'_id': False}))
+    return render_template('temp/index.html', key=key, data=data, page=page)

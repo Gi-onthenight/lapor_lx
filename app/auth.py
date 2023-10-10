@@ -6,6 +6,7 @@ import random
 import os
 from os.path import join, dirname
 from datetime import datetime
+import hashlib
 
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -25,10 +26,29 @@ def generate_random_filename(length):
 
 auth_bp = Blueprint('auth', __name__)
 
+@auth_bp.route('/add-access-admin/<key>', methods=['POST'])  
+def add_admin(key):
+    if request.method == 'POST':
+        name = request.form['name']
+        username = request.form['username']
+        password = request.form['password']
+        password_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
+        doc = {
+            "nama": name,
+            "username": username, 
+            "password": password_hash,    
+        }
+        user = db.admin.insert_one(doc)
+
+        if user:
+            flash('Akses telah ditambahkan.', 'success')
+            return redirect(url_for('main.admin_access', key=key))
+        else:
+            flash('Akses gagal ditambahkan.', 'error')
+            return redirect(url_for('main.admin_access', key=key))
 
 @auth_bp.route('/submit', methods=['POST'])
 def submit():
-    page = "Buat Laporan"
     if request.method == 'POST':
         id_person = generate_random_filename(6)
         nama = request.form['nama']
@@ -67,15 +87,14 @@ def submit():
             'tanggal': tanggal
         }
 
-        session['kode_akses'] = id_person
-
-        db.laporan.insert_one(data)
-
-    if 'kode_akses' in session:
-        flash('Laporan Anda telah dikirim!', 'success')
-        return render_template('report/index.html', kode_akses=id_person, page=page)
-    else:
-        return redirect(url_for('main.report'))
+        add = db.laporan.insert_one(data)
+        if add:
+            flash('Laporan Anda telah dikirim!', 'success')
+            key = generate_random_filename(12)
+            return redirect(url_for('main.access_code', key=key, kode_akses=id_person))
+        else:
+            flash('Username atau Password yang anda masukan salah. Silahkan coba lagi.', 'error')
+            return redirect(url_for('main.report'))
 
 @auth_bp.route('/tracking/result', methods=['POST'])
 def cari():
@@ -96,7 +115,6 @@ def cari():
         flash('Data laporan tidak ada.', 'error')
         return redirect(url_for('main.tracking'))
 
-      
 @auth_bp.route('/login')
 def login():
     page = 'Log In'
@@ -107,6 +125,7 @@ def login_auth():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        password = hashlib.sha256(password.encode("utf-8")).hexdigest()
 
         if not username or not password:
             flash('Isi kedua kolom username dan password.', 'error')
@@ -116,7 +135,7 @@ def login_auth():
 
         if user:
             session['logged_in'] = True
-            key = generate_random_filename(12)
+            key = generate_random_filename(18)
             return redirect(url_for('main.dashboard', key=key))
         else:
             flash('Username atau Password yang anda masukan salah. Silahkan coba lagi.', 'error')
@@ -156,8 +175,42 @@ def update_status(id_person):
         )
         
         flash('Feedback telah dikirim!', 'success')
-        return redirect(url_for('main.dashboard', key=id_person, page=page))
+        return redirect(url_for('main.workspace', key=id_person, page=page))
 
+@auth_bp.route('/delete/<key>/<id_person>')
+def delete(key, id_person):
+    record = db.laporan.find_one({"id_person": id_person})
+    if record:
+        lampiran_path = os.path.join(current_app.config['UPLOAD_FOLDER'], record['lampiran'])
+        if os.path.exists(lampiran_path):
+            os.remove(lampiran_path)
+
+        result = db.laporan.delete_one({"id_person": id_person})
+
+        if result.deleted_count == 1:
+            flash('Laporan telah dihapus!', 'success')
+        else:
+            flash('Laporan gagal dihapus!', 'error')
+    else:
+        flash('Laporan tidak ditemukan!', 'error')
+
+    return redirect(url_for('main.dashboard', key=key))
+
+@auth_bp.route('/delete-admin/<key>/<password>')
+def delete_admin(key, password):
+    record = db.admin.find_one({"password": password})
+    if record:
+        record = db.admin.delete_one({"password": password})
+
+        if record.deleted_count == 1:
+            flash('Akses telah dihapus!', 'success')
+        else:
+            flash('Akses gagal dihapus!', 'error')
+    else:
+        flash('Akses tidak ditemukan!', 'error')
+
+    return redirect(url_for('main.admin_access', key=key))
+    
 @auth_bp.route('/logout')
 def logout():
     session.pop('logged_in', None)

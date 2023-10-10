@@ -29,7 +29,6 @@ $("form").submit(function (event) {
   });
 });
 
-
 var messages = {{ get_flashed_messages() | tojson | safe
 }};
 

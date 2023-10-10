@@ -1,154 +1,156 @@
+<script>
+    var messages = {{ get_flashed_messages() | tojson | safe
+    }};
+    
+    if (messages.length > 0) {
+      alert(messages.join('\n'));
+    };
+</script>
+<div class="row">
+    <div class="col py-2">
+        <div class=" card p-2 shadow">
+            <span class="p-2 fw-semibold">Data Statistik</span>
+            <hr>
+            <div class="row">
+                <div class="col-6 col-md-3 mb-2">
+                    <div class="card bg-blue text-white">
+                        <div class="card-body">
+                            <p style="font-size: 11pt;">Laporan</p>
+                            <hr>
+                            <span class="fs-5">{{ total_d }}</span>
 
-    <div class="row m-2">
-        <div class="col ">
-            <div class=" card p-2 shadow">
-                <p class="p-2 fw-semibold ">Data Statistik</p>
-                <hr>
-                <div class="row">
-                    <div class="col-md-3 mb-2">
-                        <div class="card bg-blue text-white">
-                            <div class="card-body">
-                                <p style="font-size: 11pt;">Laporan</p>
-                                <hr>
-                                <span class="fs-5">{{ total_d }}</span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-2">
-                        <div class="card bg-blue text-white">
-                            <div class="card-body">
-                                <p style="font-size: 11pt;">Tertangani</p>
-                                <hr>
-                                <span class="fs-5">{{ t_sudah }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-2">
-                        <div class="card bg-blue text-white">
-                            <div class="card-body">
-                                <p style="font-size: 11pt;">Prosess</p>
-                                <hr>
-                                <span class="fs-5">{{ t_belum }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-2">
-                        <div class="card bg-blue text-white">
-                            <div class="card-body">
-                                <p style="font-size: 11pt;">Mentor/Teknisi</p>
-                                <hr>
-                                <span class="fs-5">20</span>
-                            </div>
                         </div>
                     </div>
                 </div>
-
+                <div class="col-6 col-md-3 mb-2">
+                    <div class="card bg-blue text-white">
+                        <div class="card-body">
+                            <p style="font-size: 11pt;">Tertangani</p>
+                            <hr>
+                            <span class="fs-5">{{ t_sudah }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 mb-2">
+                    <div class="card bg-blue text-white">
+                        <div class="card-body">
+                            <p style="font-size: 11pt;">Prosess</p>
+                            <hr>
+                            <span class="fs-5">{{ t_belum }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 mb-2">
+                    <div class="card bg-blue text-white">
+                        <div class="card-body">
+                            <p style="font-size: 11pt;">Mentor/Teknisi</p>
+                            <hr>
+                            <span class="fs-5">20</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card my-3 shadow " >
-                <div class="content card-body ">
-                    <p class="p-2 fw-semibold">Preview Laporan</p>
-                    <hr>
-                    <div class="row p-3 content" style="max-height: 40vh; overflow-y: auto;">
-                        {% for i in data %}
-                        <div class="col-md-3 d-flex p-1">
-                            <img style="border: 1px solid white;"
-                                src="{{ url_for('static', filename='lampiran/' + i.lampiran) }}"
-                                class="rounded-4 img-fluid">
+
+        </div>
+        <div class="mt-3 ">
+            <div class="content">
+                <p class="p-2 fw-semibold">Jenis Laporan</p>
+                <div class="row content p-2" style="height: 32vh; overflow-y: auto;">
+
+                    <div class="row ">
+                        {% for i in kategori %}
+                        <div class="col-6 col-md-2 mb-2 ">
+                            <div class="card ">
+                                <div class="d-flex">
+                                    {% if i.nama == 'Media' %}
+                                    <i class="fa-solid fa-paperclip me-2"></i>
+                                    {% elif i.nama == 'Text' %}
+                                    <i class="fa-solid fa-text-slash me-2"></i>
+                                    {% elif i.nama == 'Foto' %}
+                                    <i class="fa-regular fa-image me-2"></i>
+                                    {% elif i.nama == 'Video' %}
+                                    <i class="fa-solid fa-video me-2"></i>
+                                    {% elif i.nama == 'Server' %}
+                                    <i class="fa-solid fa-server me-2"></i>
+                                    {% elif i.nama == 'Payment' %}
+                                    <i class="fa-regular fa-credit-card me-2"></i>
+                                    {% elif i.nama %}
+                                    <i class="fa-solid fa-id-badge me-2"></i>
+                                    {% else%}
+                                    {% endif %}
+                                    <h6 style="font-size: 8pt;">{{ i.nama }}</h6>
+                                </div>
+                                <div class="card-footer bg-green" style="border-radius: 0 0 10px 10px;">
+                                    <span class="fw-semibold " style="float: right;font-size: 12pt;">{{ i.jumlah }}
+                                        <span style="font-size: 7pt;">Laporan</span></span>
+                                </div>
+                            </div>
                         </div>
                         {% endfor %}
-                        
+
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card shadow">
-                <div class="card-body" style="font-size: 10pt;">
-                    <div class="card ">
-                        <span class="text-center p-2 fw-semibold">Type of Report</span>
+    </div>
+    <div class="col-md-4">
+        <div class="shadow rounded-3 p-3">
+            <div class="card">
+                <span class="p-2 fw-semibold">Laporan</span>
+            </div>
+            <div class="content card-body" style="font-size: 10pt;max-height: 72vh;height: 72vh;overflow-y: auto;">
+                <form class="col " role="search">
+                    <div class="d-flex p-1">
+                        <input class="form-control" type="search" placeholder="Cari Laporan" aria-label="Search"
+                            id="search-type-report">
+
                     </div>
+                </form>
+                <table class="table table-striped" id="data-report">
+                    <thead>
+                        <tr style="font-size: 10pt;">
+                            <th scope="col">Id</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Act</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data %}
+                        <tr style="font-size: 8pt;">
+                            <td class="fw--semibold">{{ i.id_person }}</td>
+                            <td class="fw--semibold">{{ i.nama }}</td>
+                            <td class="fw--semibold"><a type="button" data-bs-toggle="modal"
+                                    data-bs-target="#alertModal"><i class="fa-solid fa-trash-can fa-lg"
+                                        style="color: #ec2222;"></i></a></td>
+                        </tr>
+                        <div class=" modal fade" id="alertModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="rounded-4 p-2 modal-content">
+                                    <div class="modal-header border-0">
+                                        <h1 class="modal-title fs-6" id="exampleModalLabel">Hapus Data</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Anda yakin ingin menghapus laporan ini?</p>
+                                    </div>
+                                    <div class="modal-footer border-0">
+                                        <button style="font-size: 10pt;" type="button"
+                                            class="btn btn-secondary rounded-5" data-bs-dismiss="modal">Tidak</button>
+                                        <a href="{{ url_for('auth.delete',key=key, id_person=i.id_person) }}" style="font-size: 10pt;" type="button" class="btn btn-danger rounded-5">Ya,
+                                            Hapus</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
 
-
-                    <div class="row mt-2">
-                        {% if kategori %}
-                        <div class="col-md-4 my-1">
-                            <div class="card bg-green">
-                                <div class="card-body">
-                                    <h6 style="font-size: 8pt;">Media</h6>
-                                    <span class="fw-semibold "
-                                        style="float: right;font-size: 12pt;">{{ kategori.media
-                                        }}
-                                        <span style="font-size: 8pt;">Laporan</span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 my-1">
-                            <div class="card bg-green">
-                                <div class="card-body">
-                                    <h6 style="font-size: 8pt;">Text</h6>
-                                    <span class="fw-semibold "
-                                        style="float: right;font-size: 12pt;">{{ kategori.text
-                                        }} <span style="font-size: 8pt;">Laporan</span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 my-1">
-                            <div class="card bg-green">
-                                <div class="card-body">
-                                    <h6 style="font-size: 8pt;">Foto</h6>
-                                    <span class="fw-semibold"
-                                        style="float: right;font-size: 12pt;">{{ kategori.foto
-                                        }} <span style="font-size: 8pt;">Laporan</span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 my-1">
-                            <div class="card bg-green">
-                                <div class="card-body">
-                                    <h6 style="font-size: 8pt;">Video</h6>
-                                    <span class="fw-semibold"
-                                        style="float: right;font-size: 12pt;">{{ kategori.video
-                                        }} <span style="font-size: 8pt;">Laporan</span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 my-1">
-                            <div class="card bg-green">
-                                <div class="card-body">
-                                    <h6 style="font-size: 8pt;">Server</h6>
-                                    <span class="fw-semibold"
-                                        style="float: right;font-size: 12pt;">{{
-                                        kategori.server }} <span style="font-size: 8pt;">Laporan</span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 my-1">
-                            <div class="card bg-green">
-                                <div class="card-body">
-                                    <h6 style="font-size: 8pt;">Pembayaran</h6>
-                                    <span class="fw-semibold"
-                                        style="float: right;font-size: 12pt;">{{
-                                        kategori.pembayaran }} <span style="font-size: 8pt;">Laporan</span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 my-1">
-                            <div class="card bg-green">
-                                <div class="card-body">
-                                    <h6 style="font-size: 8pt;">Teknis</h6>
-                                    <span class=" fw-semibold "
-                                        style="float: right;font-size: 12pt;">{{
-                                        kategori.teknis }} <span style="font-size: 8pt;">Laporan</span></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        {% endif %}
-                    </div>
-                </div>
+                    </tbody>
+                </table>
 
             </div>
+
         </div>
     </div>
 </div>

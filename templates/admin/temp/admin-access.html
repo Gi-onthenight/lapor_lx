@@ -1,0 +1,117 @@
+<script>
+    var messages = {{ get_flashed_messages() | tojson | safe
+    }};
+    
+    if (messages.length > 0) {
+      alert(messages.join('\n'));
+    };
+</script>
+<div class="container-fluid">
+    <div class="content">
+        <div class="d-flex justify-content-between">
+            <p class="p-2 fw-semibold">Admin Access</p>
+            <!-- href="{{ url_for('auth.add_admin', key=key )}}"  -->
+            <div>
+                <a style="font-size: 8pt;" type="button" class="btn btn-success rounded-5" data-bs-toggle="modal"
+                    data-bs-target="#add_admin"><i class="fa-solid fa-plus me-2"></i>Buat Akses Baru</a>
+
+                <div class="modal fade" id="add_admin" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="rounded-4 p-2 modal-content">
+                            <div class="modal-header border-0">
+                                <h1 class="modal-title fs-6" id="exampleModalLabel">Akses Admin</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ url_for('auth.add_admin', key=key )}}" method="post"
+                                    enctype="multipart/form-data">
+                                    <div class="input-group mb-4">
+                                        <input type="text" class="form-control rounded-3"
+                                            placeholder="Masukkan Nama Akses" name="name" required>
+                                    </div>
+                                    <div class="input-group mb-4">
+                                        <input type="text" class="form-control rounded-3" placeholder="Username"
+                                            name="username" required>
+                                    </div>
+                                    <div class="input-group mb-4">
+                                        <input type="password" class="form-control rounded-3" placeholder="Password"
+                                            name="password" required>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success rounded-3 w-100"
+                                        style="font-size: 10pt;">Tambahkan</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card shadow" style="height: 50vh; overflow-y: auto;">
+            <div class="card-body">
+                <table class="table">
+                    <thead style="font-size: 10pt;">
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama Akses</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">
+                                <div class="float-end">Edit</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 8pt;">
+                        {% for i in data %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <th>{{ i.nama }}</th>
+                            <td>{{ i.username }}</td>
+                            <td>
+                                {% if i.nama == 'Default Access' %}
+
+                                {% else %}
+                                <div class="float-end">
+                                    <a type="button" data-bs-toggle="modal" data-bs-target="#alertModal{{ loop.index }}">
+                                        <i class="fa-solid fa-trash-can fa-lg me-2" style="color: #ec2222;"></i>
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        <div class=" modal fade" id="alertModal{{ loop.index }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="rounded-4 p-2 modal-content">
+                                    <div class="modal-header border-0">
+                                        <h1 class="modal-title fs-6" id="exampleModalLabel">Hapus Data</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p style="font-size: 10pt;">Anda yakin ingin menghapus Akses ini?</p>
+                                    </div>
+                                    <div class="modal-footer border-0">
+                                        <button style="font-size: 10pt;" type="button"
+                                            class="btn btn-secondary rounded-5" data-bs-dismiss="modal">Tidak</button>
+                                        <a href="{{ url_for('auth.delete_admin',key=key, password=i.password) }}"
+                                            style="font-size: 10pt;" type="button" class="btn btn-danger rounded-5">Ya,
+                                            Hapus</a>
+
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

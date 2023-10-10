@@ -35,37 +35,36 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
     <script src="{{ url_for('static', filename='main.js')}}"></script>
 
-    <title>{{ page }} - Lapor LX</title>
+    <title>{{ page }} | Lapor LearningX </title>
 
     <script>
         $(document).ready(function () {
-            
             $("#search-input").on("keyup", function () {
                 var searchTerm = $(this).val().toLowerCase();
                 $("#data-table tbody tr").filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(searchTerm) > -1);
                 });
             });
-    
-            $("#search-input").on("keyup", function () {
+
+            $("#search-type-report").on("keyup", function () {
                 var searchTerm = $(this).val().toLowerCase();
-                $("#data-table tbody tr").filter(function () {
+                $("#data-report tbody tr").filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(searchTerm) > -1);
                 });
             });
-    
+
             $('.f-d').on('click', function (e) {
                 e.preventDefault();
                 const filterType = $(this).data('filter-type');
                 const filterValue = $(this).data('filter-value');
                 filterData(filterType, filterValue);
             });
-    
+
             function filterData(filterType, filterValue) {
                 $('#data-table tbody tr').hide();
-    
+
                 if (filterType === 'status' && filterValue !== 'all') {
-                    $(`#data-table tbody tr td:nth-child(5) div[status="${filterValue}"]`).each(function () {
+                    $(`#data-table tbody tr td:nth-child(7) div[status="${filterValue}"]`).each(function () {
                         $(this).closest('tr').show();
                     });
                 } else if (filterType === 'jenis' && filterValue !== 'all') {
@@ -76,131 +75,109 @@
                     $('#data-table tbody tr').show();
                 }
             }
+            $(".data-item").click(function () {
+                var id_person = $(this).data("id");
     
+                $.ajax({
+                    url: "/get_data/<key>/" + id_person,
+                    type: "GET",
+                    dataType: "html",
+                    success: function (htmlData) {
     
+                        $("#detail-data").html(htmlData);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
         });
-
     </script>
 </head>
 
 <body>
-    {% if page == 'Dashboard' or page == 'Workspace'%}
-    <div style="height: 100vh;">
-        <nav class="navbar navbar-expand-lg py-3 bg-light-subtle shadow sticky-top" style="height: 10%;">
+    {% if page == 'Dashboard' or page == 'Workspace' or page == 'Admin Access' %}
+
+    <div class="mw-100" style="max-height: 100vh;height: 100vh;">
+        <nav class="nav-h navbar navbar-expand-lg shadow sticky-top bg-body-tertiary">
             <div class="container-fluid">
 
                 <a href="/" class="text-dark">
                     <img src="{{ url_for('static', filename='assets/imgs/learningx.png')}}" alt="" width="120">
                 </a>
+
                 <a class="text-dark d-md-none" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample"
                     aria-controls="offcanvasExample">
                     <i class="fa-solid fa-bars fa-lg"></i>
                 </a>
-                {% if page == 'Workspace' %}
-                <form class="col-md-6 d-none d-md-block" role="search">
-                    <div class="d-flex">
-                        <input class="form-control " type="search" placeholder="Search" aria-label="Search"
-                            id="search-input">
-                        <button type="button" class="btn">
-                            <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-                        </button>
-                    </div>
-                </form>
-                {% else %}
-                {% endif %}
-                <div class="d-none d-md-block">
-                    <div class="nav justify-content-center align-items-center ">
 
-
-                        <div class="profile d-flex align-items-center">
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Menu
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end border-0 rounded-4 shadow py-4 px-3">
-                                    <li><a class="dropdown-item rounded-3" href="#">FAQ</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item rounded-3" href="/logout">Log Out</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </nav>
-        <div class="row" style="height: 90%;max-width: 100%;">
-            <div class="sidebars start-0 col-md-6 d-flex flex-column flex-shrink-0 p-3 bg-light-subtle shadow sticky-top offcanvas-lg offcanvas-start"
-                tabindex="-1" id="offcanvasExample" data-bs-backdrop="false" aria-labelledby="offcanvasExampleLabel"
-                style="width: 280px;">
-                <span class="fs-4 fw-semibold">{{ page }}</span>
+        <div class="row w-100" style="max-height: 90%;height: 90%;">
+
+            <div class="col-md-4 sticky-top offcanvas-lg offcanvas-start d-flex flex-column flex-shrink-0 sidebars h-100 shadow start-0"
+                style="width: 240px;" tabindex="-1" id="offcanvasExample" data-bs-backdrop="false"
+                aria-labelledby="offcanvasExampleLabel">
+                <h1 class="pt-3" style="font-size: 10pt;">Lapor LX / <span class="fs-6">{{ page }}</span></h1>
+
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="my-1">
-                        <a href="{{ url_for('main.dashboard', key=key) }}"
+                        <a style="font-size: 8pt;" href="{{ url_for('main.dashboard', key=key) }}"
                             class="nav-link {% if page == 'Dashboard' %}link-light active-page {% else %} nav-link-page link-dark{% endif %}">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#speedometer2" />
-                            </svg>
+                            <i class="fa-solid fa-chart-line me-2"></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="my-1">
-                        <a href="{{ url_for('main.workspace', key=key) }}"
+                        <a style="font-size: 8pt;" href="{{ url_for('main.workspace', key=key) }}"
                             class="nav-link {% if page == 'Workspace' %}link-light active-page {% else %} nav-link-page link-dark{% endif %}">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <use xlink:href="#table" />
-                            </svg>
+                            <i class="fa-solid fa-laptop-file me-2"></i>
                             Workspace
                         </a>
                     </li>
-
+                    <hr>
+                    <li class="my-1">
+                        <a style="font-size: 8pt;" href="{{ url_for('main.admin_access', key=key) }}"
+                            class="nav-link {% if page == 'Admin Access' %}link-light active-page {% else %} nav-link-page link-dark{% endif %}">
+                            <i class="fa-solid fa-user me-2"></i></i>
+                            Admin Access
+                        </a>
+                    </li>
+                    
                 </ul>
-                <hr>
-                <div class="d-none d-md-block d-flex justify-content-between">
-                    <span class="text-light-subtle">Created by </span>
-                    <img src="{{ url_for('static', filename='assets/imgs/abyssinian.png')}}" alt="" width="120">
-                </div>
-                
-                <div class="d-md-none">
-                    <div class="nav justify-content-center">
-                        
-                        <div class="d-flex justify-content-between">
-                            <span class="text-light-subtle">Created by </span>
-                            <img src="{{ url_for('static', filename='assets/imgs/abyssinian.png')}}" alt="" width="120">
-                        </div>
-                        <div class="profile d-flex align-items-center">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Menu
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end border-0 rounded-4 shadow py-4 px-3">
-                                    <li><a class="dropdown-item rounded-3" href="#">FAQ</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item rounded-3" href="#">Log Out</a></li>
-                                </ul>
-                            </li>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="content col bg-light-subtle" style="max-height: 100%;overflow-y: auto;">
-                {% if page == 'Dashboard' %}
-                    {% include 'admin/temp/dashboard.html' %}
-                {% else %}
-                    {% include 'admin/temp/workspace.html' %}
-                {% endif %}
-            </div>
-        </div>
 
+                <ul class="nav nav-pills flex-column ">
+                    <li class="my-1">
+                        <a style="font-size: 8pt;" href="/logout" class="nav-link nav-link-page link-dark">
+                            <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
+                            Log Out
+                        </a>
+                    </li>
+                </ul>
+
+                <hr>
+                <div class="pb-2 d-flex justify-content-center">
+                    <span style="font-size: 8pt;">Created by </span>
+                    <img src="{{ url_for('static', filename='assets/imgs/abyssinian.png')}}" alt="" width="80">
+                </div>
+            </div>
+
+            <div class="col content h-100" style="overflow-y: auto;">
+                <div class="py-3 ps-3">
+                    {% if page == 'Dashboard' %}
+                    {% include 'admin/temp/dashboard.html' %}
+                    {% elif page == 'Workspace' %}
+                    {% include 'admin/temp/workspace.html' %}
+                    {% elif page == 'Admin Access' %}
+                    {% include 'admin/temp/admin-access.html' %}
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
     </div>
+
     {% else %}
 
     {% block body %}{% endblock %}

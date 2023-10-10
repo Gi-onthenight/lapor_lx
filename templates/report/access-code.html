@@ -12,6 +12,7 @@
 
         navigator.clipboard.writeText(accessCode).then(function () {
             alert("Kode berhasil disalin!");
+            window.location.href = '/report';
         }).catch(function (err) {
             console.error('Gagal menyalin kode: ', err);
             alert("Gagal menyalin kode. Silakan coba lagi.");
@@ -27,90 +28,50 @@
                     style="border-radius: 20px;color: white;">
                     <div class="col">
                         <div class="d-flex  justify-content-between">
-                            <span class="fs-5 fw-bold">Buat Laporan</span>
-                            <a href="" target="_blank" class="card p-2 px-4" style="text-decoration: none;"
-                                data-bs-toggle="modal" data-bs-target="#step-img">
-                                <span style="font-size: 10pt;">Langkah Penggunaan</span>
-                            </a>
-
-                            <div class="modal fade" id="step-img" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Langkah Penggunaan</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img class="img-fluid"
-                                                src="{{ url_for('static', filename='assets/imgs/panduan.png')}}">
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <span class="fs-5 fw-bold">Buat Laporan</span>        
                         </div>
-
                     </div>
 
+                    <div id="access-code-container" style="color: black;">
+                        <br>
+                        <p style="font-size: 10pt;">Kode Akses kamu:</p>
+                        <p class="card shadow p-2 fs-4 fw-bold text-center" style="background-color: rgba(255, 255, 255, 0.5)" id="access-code" value="{{ kode_akses }}">{{ kode_akses }}
+                        </p>
+                        <p class="p-2 rounded-3"
+                            style="background-color: rgba(255, 255, 255, 0.5);font-size: 8pt;color: rgb(0, 0, 0);">
+                            *Salin kode akses anda untuk
+                            pengecekan lebih lanjut tentang laporanmu.</p>
+                        <div class="w-100 d-flex justify-content-center">
+                            <button class="btn card p-2 rounded-5 mx-2" onclick="copyText()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-clipboard" viewBox="0 0 16 16">
+                                    <path
+                                        d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                                    <path
+                                        d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                                </svg>
+                            </button>         
+                        </div>
+                        <div class="navbar">
+                            <a href="/" class="card py-2 px-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <form action="/submit" method="post" class="p-2" id="laporan-form" enctype="multipart/form-data">
-
-                        <div class="input-group mb-4">
-                            <input type="text" class="form-control" placeholder="Nama Lengkap" name="nama" required>
-                        </div>
-
-                        <div class="input-group mb-4">
-                            <span class="input-group-text" style="border-radius: 20px 0 0 20px;font-size: 10pt;">+62</span>
-                            <input type="text" class="form-control" placeholder="8123456789" name="no-wa" required>
-                            <span class="input-group-text">#</span>
-                            <input type="text" class="form-control" placeholder="Id Discord" name="id-discord" required>
-                        </div>
-
-                        <div class="input-group mb-4">
-                            <input type="file" accept=".png, .jpg, .jpeg" class="form-control" name="lampiran" required>
-                            <label class="input-group-text" style="font-size: 10pt;">Lampiran</label>
-                        </div>
-
-                        <div class="input-group mb-4">
-
-                            <select class="form-select" name="jenis-l" style="font-size: 10pt;">
-                                <option value="Media">Media</option>
-                                <option value="Text">Text</option>
-                                <option value="Foto">Foto</option>
-                                <option value="Video">Video</option>
-                                <option value="Server">Server</option>
-                                <option value="Pembayaran">Pembayaran</option>
-                                <option value="Teknis atau Mentor">Teknis atau Mentor</option>
-
-                            </select>
-                            <label class="input-group-text" style="font-size: 10pt;">Jenis Laporan</label>
-                        </div>
-
-                        <div class="input-group mb-4">
-                            <textarea class="form-control" placeholder="Laporan" name="laporan" rows="4" cols="50"
-                                required></textarea>
-                        </div>
-
-                        <button type="submit" class="btn px-4 btn-lx" value="submit"
-                            style="float: right;font-size: 10pt;">Kirim</button>
-
-                    </form>
-
-                </div>
-                
             </div>
         </div>
 
     </div>
 
-    <div class="d-flex justify-content-center my-3">
-        <img class="img-fluid" src="{{ url_for('static', filename='assets/imgs/process.png')}}" width="500px">
-    </div>
+    
 </div>
 
-<footer style="background-color: rgb(242, 242, 242);" class="pt-3">
+<footer style="background-color: rgb(242, 242, 242);" class="pt-3 fixed-bottom">
     <div class="container">
         <div class="row">
             <div class="col">
