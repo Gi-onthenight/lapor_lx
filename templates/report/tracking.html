@@ -14,11 +14,12 @@
         {% include 'temp/navbar.html' %}
         <div class="forms container-fluid w-100 h-100">
             <div class="d-flex justify-content-center align-items-center h-75">
-                <div class="card shadow">
-                    <div class="card-header p-4 bg-blue fs-5 fw-bold" style="border-radius: 20px;color: white;">
+                <div class="card shadow animate__animated animate__fadeInDown">
+                    <div class="card-header p-4 bg-blue fs-5 fw-bold rounded-4 text-white">
                         Cari Info Laporan
                     </div>
                     <div class="card-body">
+                      
                         <form action="/tracking/result" method="post" class="p-2" id="laporan-form"
                             enctype="multipart/form-data">
                             <p style="font-size: 8pt;color: grey;">*Jika belum memiliki kode akses laporanmu silahkan

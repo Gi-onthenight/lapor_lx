@@ -1,20 +1,19 @@
 {% if selected_laporan %}
-
-<div class="card my-2 d-flex flex-column">
-    <img data-toggle="modal" data-target="#myModal"
-        style="border-radius: 20px;object-fit: cover;object-position: center;" class="object-fit-cover"
+<div>
+  <div class="card d-flex flex-column">
+    <img  class="object-fit-cover rounded-4"
         src="{{ url_for('static', filename='lampiran/' + selected_laporan.lampiran) }}" alt="" height="200">
     <button data-bs-toggle="modal" data-bs-target="#img-lampiran" style="font-size: 10pt;" type="button" class="btn btn-success my-1 rounded-4">Review Lampiran</button>
 
-    <div class="modal fade" id="img-lampiran" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade " id="img-lampiran" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog border-0 rounded-4" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-blue text-white">
                     <h1 class="modal-title fs-6" id="exampleModalLabel">Review Lampiran</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                 <div class="modal-body">
-                    <img class="img-fluid" src="{{ url_for('static', filename='lampiran/' + selected_laporan.lampiran) }}" alt="">
+                    <img class="img-fluid rounded-4" src="{{ url_for('static', filename='lampiran/' + selected_laporan.lampiran) }}" alt="">
                 </div>
             </div>
         </div>
@@ -56,7 +55,7 @@
         <div class=" modal fade" id="alertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="rounded-4 p-2 modal-content">
-                    <div class="modal-header border-0">
+                    <div class="modal-header border-0 bg-blue rounded-4 text-white">
                         <h1 class="modal-title fs-6" id="exampleModalLabel">Berikan Feedback</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -87,6 +86,8 @@
     {% else %}
     {% endif %}
 </div>
+</div>
+
 
 
 {% endif %}

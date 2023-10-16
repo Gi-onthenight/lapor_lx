@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/lampiran'
 app.secret_key = os.urandom(7)
 
-app.register_blueprint(auth_bp )
+app.register_blueprint(auth_bp)
 app.register_blueprint(main_bp)
 
 if __name__ == '__main__':

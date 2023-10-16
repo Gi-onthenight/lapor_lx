@@ -2,21 +2,24 @@
 
 {% block body %}
 
+
 <div class="bg-blur" style="height: 100vh;">
     {% include 'temp/navbar.html' %}
     <div class="container d-flex align-items-center" style="height: 80%;">
-        <div class="" style="font-size: 10pt;">
-            <h3>Selamat Datang di Lapor LX - Portal Pengaduan Kursus Online</h3>
-            <p>Selamat datang di Lapor LX, tempat terpercaya untuk melaporkan pengalaman Anda dalam kursus online.
+        <div style="font-size: 10pt;">
+            <h3 class="animate__animated animate__fadeInUp fw-bold">Selamat Datang di Lapor LX - Portal Pengaduan Kursus Online
+            </h3>
+            <p class="animate__animated animate__fadeInUp">Selamat datang di Lapor LX, tempat terpercaya untuk
+                melaporkan pengalaman Anda dalam kursus online.
                 Memiliki masalah teknis seputar kursus? Kamu bisa mengadukan semua masalah atau laporan selama
                 pembelajaran di
                 LearningX.
             </p>
             <br>
-            <p style="font-size: 8pt;" class="">Laporkan Sekarang!</p>
-            <div>
-                <a style="font-size: 10pt;" class="btn btn-lx px-4" href="/report">Buat Laporan</a>
-                <a style="font-size: 10pt;" class="btn " href="/tracking">Cek Laporan <svg
+            <p style="font-size: 8pt;" class="animate__animated animate__fadeInLeft">Laporkan Sekarang!</p>
+            <div class="animate__animated animate__fadeInDown">
+                <a style="font-size: 10pt;" class="btn btn-lx px-4 fw-semibold" href="/report">Buat Laporan</a>
+                <a style="font-size: 10pt;" class="btn rounded-5 fw-semibold" href="/tracking">Cek Laporan <svg
                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-arrow-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -26,39 +29,45 @@
         </div>
     </div>
     <div class="col d-flex justify-content-center">
-        <div class="w-25 d-flex justify-content-around ">
-            <img src="{{ url_for('static', filename='assets/imgs/learningx.png')}}" width="120">
-            <img src="{{ url_for('static', filename='assets/imgs/abyssinian.png')}}" width="120">
+        <div class=" d-flex justify-content-around animate__animated animate__backInUp rounded-5 px-5 py-3" style="background-color: rgba(255, 255, 255, 0.5);">
+            <img class="me-3" src="{{ url_for('static', filename='assets/imgs/learningx.png')}}" width="120"> |
+            <img class="ms-3" src="{{ url_for('static', filename='assets/imgs/abyssinian.png')}}" width="120">
         </div>
     </div>
 </div>
 
-<div class="container my-5">
-    <div class="row">
-        <div class="col-md-7">
+<div class="container animate__animated animate-element" data-animation="animate__fadeIn" style="margin-top: 16vh;margin-bottom: 10vh;">
+  <div class="bg-danger pt-2 pb-1 ps-4 w-75 " style="border-radius: 20px 20px 0 0;">
+    <h5 class="text-white fw-semibold">
+      Ciptakan Kenyamanan Kenerja
+    </h5>
+  </div>
+    <div class="row rounded-5 bg-body-tertiary shadow-lg">
+        <div class="col-sm-12 col-md-6 animate__animated animate-element "  data-animation="animate__fadeInLeft">
             <img class="img-fluid" src="{{ url_for('static', filename='assets/imgs/i-2.png')}}">
         </div>
-        <div class="col d-flex align-items-center">
+        <div class="col d-flex align-items-center animate__animated animate-element border-start"
+            data-animation="animate__fadeInRight">
             <ul style="list-style-type: circle;">
                 <li>
-                    <h6>Cepat dan Mudah</h6>
-                    <p class="px-2" style="font-size: 10pt;border-left: 2px solid red;">Laporkan masalah Anda dalam
+                    <h6 class="fw-semibold">Cepat dan Mudah</h6>
+                    <p class="px-2 shadow py-2 rounded-3" style="font-size: 10pt;border-left: 2px solid red;">Laporkan masalah Anda dalam
                         beberapa langkah mudah. Kami
                         mengutamakan kenyamanan dan kecepatan.</p>
                 </li>
                 <li>
-                    <h6>Dukungan 24/7</h6>
-                    <p class="px-2" style="font-size: 10pt;border-left: 2px solid red;">Tim kami siap membantu Anda 24
+                    <h6 class="fw-semibold">Dukungan 24/7</h6>
+                    <p class="px-2 shadow py-2 rounded-3" style="font-size: 10pt;border-left: 2px solid red;">Tim kami siap membantu Anda 24
                         jam sehari, 7 hari seminggu. Kami peduli dengan pengalaman belajar Anda..</p>
                 </li>
                 <li>
-                    <h6>Keamanan Data</h6>
-                    <p class="px-2" style="font-size: 10pt;border-left: 2px solid red;">Privasi Anda sangat penting bagi
+                    <h6 class="fw-semibold">Keamanan Data</h6>
+                    <p class="px-2 shadow py-2 rounded-3" style="font-size: 10pt;border-left: 2px solid red;">Privasi Anda sangat penting bagi
                         kami. Data Anda akan dijamin kerahasiaannya..</p>
                 </li>
                 <li>
-                    <h6>Pemecahan Masalah Efektif</h6>
-                    <p class="px-2" style="font-size: 10pt;border-left: 2px solid red;">Kami bekerja sama dengan
+                    <h6 class="fw-semibold">Pemecahan Masalah Efektif</h6>
+                    <p class="px-2 shadow py-2 rounded-3" style="font-size: 10pt;border-left: 2px solid red;">Kami bekerja sama dengan
                         penyedia kursus untuk memastikan masalah Anda ditangani dengan cepat dan efisien.</p>
                 </li>
 
@@ -68,39 +77,40 @@
     </div>
 </div>
 
-<div class="container my-5">
+<div class="container my-5" style="margin-top: 16vh;margin-bottom: 10vh;">
     <div class="row">
-        <div class="col-md-7 d-flex align-items-center">
+        <div class="col-md-7 d-flex align-items-center animate__animated animate-element"
+            data-animation="animate__fadeInLeft">
             <ul style="list-style-type: circle;">
-                <li>
-                    <h5>Bagaimana Cara Melaporkan?</h5>
+                <div>
+                    <h5><i class="fa-solid fa-file-circle-exclamation me-3 fa-lg" style="color: red;"></i>Bagaimana Cara Melaporkan?</h5>
                     <br>
                     <ol style="border-left: 2px solid red;">
                         <li>
-                            <p class="px-2" style="font-size: 10pt;">Buka Formulir Pengaduan: Isi formulir pengaduan
+                            <p class="px-2 fw-semibold" style="font-size: 10pt;">Buka Formulir Pengaduan: Isi formulir pengaduan
                                 dengan detail lengkap mengenai masalah Anda.</p>
                             <hr>
                         </li>
                         <li>
-                            <p class="px-2" style="font-size: 10pt;">Dapatkan Kode Laporan: Salin dan simpan kode yang
+                            <p class="px-2 fw-semibold" style="font-size: 10pt;">Dapatkan Kode Laporan: Salin dan simpan kode yang
                                 anda dapatkan untuk memeriksa laporan.</p>
                             <hr>
                         </li>
                         <li>
-                            <p class="px-2" style="font-size: 10pt;">Pemrosesan Pengaduan: Tim akan segera memproses
+                            <p class="px-2 fw-semibold" style="font-size: 10pt;">Pemrosesan Pengaduan: Tim akan segera memproses
                                 laporan yang anda kirim.</p>
                             <hr>
                         </li>
                         <li>
-                            <p class="px-2" style="font-size: 10pt;">Laporan Selesai: Kami akan memberi feedback ketika
+                            <p class="px-2 fw-semibold" style="font-size: 10pt;">Laporan Selesai: Kami akan memberi feedback ketika
                                 masalah Anda telah diselesaikan. Keamanan dan kepuasan Anda adalah prioritas kami.</p>
                             <hr>
                         </li>
                     </ol>
-                </li>
+                </div>
             </ul>
         </div>
-        <div class="col">
+        <div class="col animate__animated animate-element" data-animation="animate__fadeInRight">
             <img class="img-fluid" src="{{ url_for('static', filename='assets/imgs/step.png')}}">
             <div class="bg-blue card">
                 <div class="card-body text-center" style="color: white;">
@@ -114,30 +124,32 @@
     </div>
 </div>
 
-<div class="container mb-3">
+<div class="container my-5 animate__animated animate-element" data-animation="animate__fadeInUp" style="margin-top: 16vh;margin-bottom: 10vh;">
     <div class="card bg-blue">
         <div class="card-body">
             <div class="row text-center" style="color: white;">
-                <div class="col">
-                    <h5 class="card-title">Jumlah Laporan</h5>
-                    <p class="card-text fs-2">{{ total_d }}</p>
+                <div class="col flex-column justify-content-center">
+                    <p class="fs-5 fw-semibold">Laporan Saat Ini</p>  
+                    
+                  <h1 class="fs-3"><span class="bg-light py-1 px-4 rounded-5 px-4" style="color: #306ed9;"><i class="fa-regular fa-file-lines fa-xs me-3"></i></i>{{ total_d }}</span></h1>
                 </div>
-                <div class="col">
-                    <h5 class="card-title">Jumlah Teknisi</h5>
-                    <p class="card-text fs-2">20</p>
+                <div class="col justify-content-center">
+                    <p class="fs-5 fw-semibold">Teknisi/Petugas</p>
+                    <h1 class="fs-3"><span class="bg-light py-1 px-4 rounded-5 px-4" style="color: #306ed9;"><i class="fa-regular fa-user fa-xs me-3"></i>20</span></h1>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<footer style="background-color: rgb(242, 242, 242);" class="pt-3">
+<footer style="background-color: rgb(242, 242, 242);" class="pt-3 ">
     <div class="container">
         <div class="row">
             <div class="col">
-                <figure class=" d-flex flex-column">
-                    <a href="http://learningx.com" target="_blank"><img src="{{ url_for('static', filename='assets/imgs/learningx.png') }}" width="120"></a>
-                    
+                <figure class=" d-flex flex-column animate__animated animate-element" data-animation="animate__fadeInLeft">
+                    <a href="http://learningx.com" target="_blank"><img
+                            src="{{ url_for('static', filename='assets/imgs/learningx.png') }}" width="120"></a>
+
                     <blockquote class="blockquote">
                         <p>PT Global Investment Institusi</p>
                     </blockquote>
@@ -149,13 +161,13 @@
                 </figure>
             </div>
             <div class="col-md-2">
-                <figure>
+                <figure class="animate__animated animate-element" data-animation="animate__fadeInRight">
                     <blockquote class="blockquote">
                         <p class="fw-semibold">Media</p>
                     </blockquote>
                     <div class="row">
                         <a href="https://www.youtube.com/@LearningX-ID" target="_blank"
-                        style="color: inherit;text-decoration: none;">
+                            style="color: inherit;text-decoration: none;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" fill="currentColor"
                                 class="bi bi-youtubed" viewBox="0 0 16 16">
                                 <path
@@ -164,7 +176,7 @@
                             <span style="font-size: 10pt;">@LearningX-ID</span>
                         </a>
                         <a href="https://www.instagram.com/learningx.id/" target="_blank"
-                        style="color: inherit;text-decoration: none;">
+                            style="color: inherit;text-decoration: none;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" fill="currentColor"
                                 class="bi bi-instagram" viewBox="0 0 16 16">
                                 <path

@@ -10,46 +10,90 @@
     };
 </script>
 <div class="container-fluid">
-<div class="row bg-blur" style="height:100vh;">
-    <div class="col">
-        <div class="p-3 d-flex flex-column justify-content-around h-75">
-            <a href="/" > <img class="mb-3"
-                    src="{{ url_for('static', filename='assets/imgs/learningx.png') }}" alt="LearningX" width="100"></a>
-            <div class="im-1">
-                <p class="mb-3 fs-3 fw-semibold">LearningX Service Center</p>
-                <p class="fw-semibold" style="width: 256px;font-size: 10pt;">Hello Admin, ada laporan yang perlu
-                    anda tangani. Silahkan
-                    Sign
-                    In.</p>
-            </div>
+    <div class="row" style="height:100vh;">
+        <div class="col bg-blur d-flex justify-content-center align-items-center ">
+            <div class="rounded-4 shadow contaniner p-2 w-75 h-75 p-3 animate__animated animate__fadeIn">
+                <div class="">
+                    <a href="/"> <img class="mb-3" src="{{ url_for('static', filename='assets/imgs/learningx.png') }}"
+                            alt="LearningX" width="140"></a>
+                </div>
+                <div class="">
+                    <p class="mb-3 fs-3 fw-semibold ">LearningX Service Center</p>
+                    <p class="fw-semibold d-none d-md-block " style="max-width: 245px;font-size: 10pt;">Hello Admin, ada laporan yang perlu
+                        anda tangani. Silahkan
+                        Sign
+                        In.</p>
+                </div>
 
-            <div class="im1">
-                <img style="float: right;" src="{{ url_for('static', filename='assets/imgs/i-1.png')}}" alt="Illust1"
-                    width="380">
-            </div>
-            <div>
-                <div class=" h-100 d-flex justify-content-center align-items-center ">
-                    <div class="form-login1">
-                        <div class=" card-header py-4 fs-6 fw-bold" style="border-radius: 20px;">
-                            <img src="{{ url_for('static', filename='assets/imgs/lx.png')}}" alt="LX" width="20">
-                            Sign In
+                <div class="card shadow my-3 d-block d-md-none animate__animated animate__fadeInUp">
+                    <div class="card-body">
+                        <div>
+                            <img class="" src="{{ url_for('static', filename='assets/imgs/lx.png') }}" alt="LearningX"
+                                width="16"> <span class="fw-semibold">Login</span>
                         </div>
-                        <div class="card p-4" style="box-shadow: none;">
+                        <form action="/login/auth" method="post" class="p-2" enctype="multipart/form-data">
+
+                            <div class="input-group mb-4">
+                                <input
+                                    style="border-radius: 0;background: transparent;border:none;border-bottom:1px solid;font-size: 8pt;"
+                                    type="text" class="form-control" placeholder="Username" name="username"
+                                    required>
+                            </div>
+                            <div class="input-group mb-4">
+                                <input
+                                    style="border-radius: 0;background: transparent;border:none;border-bottom:1px solid;font-size: 8pt;"
+                                    type="password" class="form-control" placeholder="Password" name="password"
+                                    required>
+                            </div>
+                            <p style="font-size: 7pt;">*Pastikan anda memiliki akses.</p>
+                            <button type="submit" class="btn btn-lx py-1 px-3 w-100" style="font-size: 10pt;">Sign
+                                In</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="d-none d-md-block ">
+                    <img class="img-fluid" style="float: right;"
+                        src="{{ url_for('static', filename='assets/imgs/i-1.png')}}" alt="Illust1" width="380">
+                </div>
+                <div class="animate__animated animate__fadeInDown">
+                    <a href="/"> <img class="mb-3" src="{{ url_for('static', filename='assets/imgs/abyssinian.png') }}"
+                            alt="LearningX" width="100"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col bg-blue d-none d-md-block shadow animate__animated animate__fadeInRight" style="border-radius: 30px 0 0 30px;">
+            <div class="d-flex justify-content-center align-items-center h-100 w-100">
+                <div class=" p-2 w-50 h-50 p-3">
+                    <div class="col mb-2 d-flex justify-content-between align-items-center">
+                        <div>
+                            <img class="" src="{{ url_for('static', filename='assets/imgs/lx.png') }}" alt="LearningX"
+                                width="20"> <span class="fw-semibold text-white">Lapor LearningX</span>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="card shadow h-100">
+                        <div class="card-body">
+                            <div class="px-2">
+                                <p class="fw-normal text-dark fs-5 text-center">Login</p> 
+                             </div>
                             <form action="/login/auth" method="post" class="p-2" enctype="multipart/form-data">
 
                                 <div class="input-group mb-4">
                                     <input
-                                        style="border-radius: 0;background: transparent;border:none;border-bottom:1px solid;"
-                                        type="text" class="form-control" placeholder="Username" name="username" required>
+                                        style="border-radius: 0;background: transparent;border:none;border-bottom:1px solid;font-size: 8pt;"
+                                        type="text" class="form-control" placeholder="Username" name="username"
+                                        required>
                                 </div>
                                 <div class="input-group mb-4">
                                     <input
-                                        style="border-radius: 0;background: transparent;border:none;border-bottom:1px solid;"
-                                        type="password" class="form-control" placeholder="Password" name="password" required>
+                                        style="border-radius: 0;background: transparent;border:none;border-bottom:1px solid;font-size: 8pt;"
+                                        type="password" class="form-control" placeholder="Password" name="password"
+                                        required>
                                 </div>
                                 <p style="font-size: 7pt;">*Pastikan anda memiliki akses.</p>
-                                <button type="submit" class="btn btn-lx py-1 px-3 w-100"
-                                    style="font-size: 10pt;">Sign
+                                <button type="submit" class="btn btn-lx py-1 px-3 w-100" style="font-size: 10pt;">Sign
                                     In</button>
                             </form>
                         </div>
@@ -57,39 +101,8 @@
 
                 </div>
             </div>
-
-
         </div>
     </div>
-
-    <div class="col form-login2 bg-blue">
-        <div class="h-100 d-flex justify-content-center align-items-center">
-            <div class="" style="background: transparent;">
-                <div class="card-header py-4 fs-6 fw-bold" style="border-radius: 20px;color: white;">
-                    <img src="{{ url_for('static', filename='assets/imgs/lx.png')}}" alt="LX" width="20">
-                    Sign In
-                </div>
-                <div class="card p-4" style="box-shadow: none;">
-                    <form action="/login/auth" method="post" class="p-2" enctype="multipart/form-data">
-
-                        <div class="input-group mb-4">
-                            <input style="border-radius: 0;background: transparent;border:none;border-bottom:1px solid;"
-                                type="text" class="form-control" placeholder="Username" name="username" required>
-                        </div>
-                        <div class="input-group mb-4">
-                            <input style="border-radius: 0;background: transparent;border:none;border-bottom:1px solid;"
-                                type="password" class="form-control" placeholder="Password" name="password" required>
-                        </div>
-                        <p style="font-size: 7pt;">*Pastikan anda memiliki akses.</p>
-                        <button type="submit" class="btn btn-lx py-1 px-3 w-100" style="font-size: 10pt;">Sign
-                            In</button>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
 </div>
 
 {% endblock %}

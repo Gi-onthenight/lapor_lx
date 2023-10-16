@@ -1,4 +1,3 @@
-
 $("#laporan-form").submit(function (e) {
   var nama = $("[name=nama]").val();
   var noWa = $("[name=no-wa]").val();

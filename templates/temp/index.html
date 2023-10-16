@@ -34,6 +34,8 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
     <script src="{{ url_for('static', filename='main.js')}}"></script>
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <title>{{ page }} | Lapor LearningX </title>
 
@@ -91,6 +93,46 @@
                     }
                 });
             });
+            
+            function isElementInViewport(el) {
+                var rect = el.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            }
+
+            function handleScroll() {
+                document.querySelectorAll('.animate-element').forEach(function (element) {
+                    if (isElementInViewport(element)) {
+                        var animation = element.dataset.animation;
+                        element.classList.add(animation);
+                    }
+                });
+            }
+
+            function handleIntersection(entries, observer) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        var animation = entry.target.dataset.animation;
+                        entry.target.classList.add(animation);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }
+
+            var observer = new IntersectionObserver(handleIntersection, { threshold: 0.2 });
+
+            document.querySelectorAll('.animate-element').forEach(function (element) {
+                observer.observe(element);
+            });
+
+            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('resize', handleScroll);
+            window.addEventListener('touchmove', handleScroll);
+          
         });
     </script>
 </head>
@@ -105,7 +147,6 @@
                 <a href="/" class="text-dark">
                     <img src="{{ url_for('static', filename='assets/imgs/learningx.png')}}" alt="" width="120">
                 </a>
-
                 <a class="text-dark d-md-none" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample"
                     aria-controls="offcanvasExample">
                     <i class="fa-solid fa-bars fa-lg"></i>
@@ -114,7 +155,6 @@
             </div>
         </nav>
         <div class="row w-100" style="max-height: 90%;height: 90%;">
-
             <div class="col-md-4 sticky-top offcanvas-lg offcanvas-start d-flex flex-column flex-shrink-0 sidebars h-100 shadow start-0"
                 style="width: 240px;" tabindex="-1" id="offcanvasExample" data-bs-backdrop="false"
                 aria-labelledby="offcanvasExampleLabel">

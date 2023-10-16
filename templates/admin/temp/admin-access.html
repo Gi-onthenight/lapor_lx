@@ -1,9 +1,9 @@
 <script>
     var messages = {{ get_flashed_messages() | tojson | safe
     }};
-    
+
     if (messages.length > 0) {
-      alert(messages.join('\n'));
+        alert(messages.join('\n'));
     };
 </script>
 <div class="container-fluid">
@@ -75,7 +75,8 @@
 
                                 {% else %}
                                 <div class="float-end">
-                                    <a type="button" data-bs-toggle="modal" data-bs-target="#alertModal{{ loop.index }}">
+                                    <a type="button" data-bs-toggle="modal"
+                                        data-bs-target="#alertModal{{ loop.index }}">
                                         <i class="fa-solid fa-trash-can fa-lg me-2" style="color: #ec2222;"></i>
                                     </a>
                                 </div>
@@ -83,8 +84,8 @@
                             </td>
                         </tr>
 
-                        <div class=" modal fade" id="alertModal{{ loop.index }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
+                        <div class=" modal fade" id="alertModal{{ loop.index }}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="rounded-4 p-2 modal-content">
                                     <div class="modal-header border-0">
@@ -102,7 +103,7 @@
                                             style="font-size: 10pt;" type="button" class="btn btn-danger rounded-5">Ya,
                                             Hapus</a>
 
-                                            
+
                                     </div>
                                 </div>
                             </div>
